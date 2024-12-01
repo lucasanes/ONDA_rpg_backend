@@ -7,7 +7,7 @@ export type SignInUsecaseInput = {
   password: string;
 };
 
-export type SignInUsecaseOutput = UserModel;
+export type SignInUsecaseOutput = { user: UserModel; token: string };
 
 export abstract class SignInUsecase extends Usecase<
   SignInUsecaseInput,

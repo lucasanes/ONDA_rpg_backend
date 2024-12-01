@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
 import { Datasources } from '@src/domain/constants/datasource';
-import { Block } from '@src/infra/entities/block.entity';
+import { User } from '@src/infra/entities/user.entity';
 import { DataSource } from 'typeorm';
 
 import AppDataSource from './datasource';
@@ -21,7 +21,7 @@ export const databaseProviders: Provider[] = [
   },
   {
     inject: ['DATA_SOURCE'],
-    provide: Datasources.BLOCK_REPOSITORY,
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(Block),
+    provide: Datasources.USER_REPOSITORY,
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(User),
   },
 ];
