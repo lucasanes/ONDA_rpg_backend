@@ -24,8 +24,8 @@ export class SignInUsecaseImpl implements SignInUsecase {
 
     if (!user) {
       throw this.exceptionService.notFoundException({
-        code_error: 'USER_NOT_FOUND',
-        message: 'User not found',
+        code_error: 'NOT_FOUND',
+        message: 'Usuário não encontrado.',
       });
     }
 
@@ -37,7 +37,7 @@ export class SignInUsecaseImpl implements SignInUsecase {
     if (!isPasswordValid) {
       throw this.exceptionService.unauthorizedException({
         code_error: 'INVALID_CREDENTIALS',
-        message: 'Invalid email or password',
+        message: 'Credenciais inválidas.',
       });
     }
 

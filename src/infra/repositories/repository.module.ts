@@ -1,6 +1,6 @@
 import { Global, Module, Provider } from '@nestjs/common';
 import { AuthRepository } from '@src/domain/repositories/auth/auth.repository';
-import { AuthRepositoryImpl } from './auth/auth.repository';
+import { AuthRepositoryImpl } from './auth.repository';
 
 const repositories: Provider[] = [
   {
