@@ -28,14 +28,14 @@ export class SignUpUsecaseImpl implements SignUpUsecase {
 
     if (usernameAlreadyExists || emailAlreadyExists) {
       this.exceptionService.badRequestException({
-        code_error: 'USER_ALREADY_EXISTS',
-        message: 'User already exists',
+        code_error: 'ALREADY_EXISTS',
+        message: 'Este usuário já existe.',
       });
     }
 
     const passwrodEncrypted = await bcrypt.hash(password, 10);
 
-    const user = await this.authRepository.save({
+    const user = await this.authRepository.saveUser({
       username: username.toLocaleLowerCase(),
       email: email.toLocaleLowerCase(),
       password: passwrodEncrypted,
@@ -44,7 +44,7 @@ export class SignUpUsecaseImpl implements SignUpUsecase {
     if (!user) {
       this.exceptionService.internalServerErrorException({
         code_error: 'INTERNAL_SERVER_ERROR',
-        message: 'Internal server error',
+        message: 'Erro ao criar usuário.',
       });
     }
   }

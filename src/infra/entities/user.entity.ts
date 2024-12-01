@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
+  Relation,
   UpdateDateColumn,
 } from 'typeorm';
+import { Recovery } from './recovery.entity';
 
 @Entity('users')
 export class User {
@@ -22,8 +25,8 @@ export class User {
   @Column('varchar')
   password: string;
 
-  // @OneToMany(() => Recovery, (recovery) => recovery.user)
-  // recoveries: Recovery[];
+  @OneToMany(() => Recovery, (recovery) => recovery.user)
+  recoveries: Relation<Recovery[]>;
 
   // @OneToMany(() => Session, (session) => session.user)
   // sessions: Session[];
