@@ -33,4 +33,14 @@ export class UserModel {
   get updatedAt(): Date {
     return this.props.updatedAt;
   }
+
+  toJSON() {
+    return {
+      id: this.id,
+      username: this.username,
+      email: this.email,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
 }
