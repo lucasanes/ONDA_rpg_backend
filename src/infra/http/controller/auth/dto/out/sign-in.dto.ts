@@ -3,9 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 export class SignInOutputDto {
   @ApiProperty({
     example: {
+      email: 'onda@gmail.com',
       id: 1,
       username: 'John Doe',
-      email: 'onda@gmail.com',
     },
   })
   user: UserDto;

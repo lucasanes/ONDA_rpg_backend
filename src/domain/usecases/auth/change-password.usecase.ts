@@ -1,8 +1,8 @@
 import { Usecase } from '../usecase';
 
 export type ChangePasswordUsecaseInput = {
-  userId: number;
   password: string;
+  userId: number;
 };
 
 export type ChangePasswordUsecaseOutput = void;

@@ -5,14 +5,15 @@ import { ExceptionServiceImpl } from './exception/exception.service';
 
 @Global()
 @Module({
-  imports: [ConfigModule], // Importa o ConfigModule globalmente
+  exports: [ConfigService, ExceptionService],
+  imports: [ConfigModule],
+  // Importa o ConfigModule globalmente
   providers: [
     ConfigService,
     {
       provide: ExceptionService,
       useClass: ExceptionServiceImpl,
     },
-  ],
-  exports: [ConfigService, ExceptionService], // Exporta para outros módulos
+  ], // Exporta para outros módulos
 })
 export class SharedModule {}

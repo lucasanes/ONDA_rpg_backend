@@ -1,9 +1,9 @@
 import { Usecase } from '../usecase';
 
 export type SignUpUsecaseInput = {
-  username: string;
   email: string;
   password: string;
+  username: string;
 };
 
 export type SignUpUsecaseOutput = void;

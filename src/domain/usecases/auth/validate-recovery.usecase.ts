@@ -1,8 +1,8 @@
 import { Usecase } from '../usecase';
 
 export type ValidateRecoveryUsecaseInput = {
-  email: string;
   code: string;
+  email: string;
 };
 
 export type ValidateRecoveryUsecaseOutput = {

@@ -1,9 +1,9 @@
 export interface RecoveryModelProps {
-  id: number;
   code: string;
-  userId: number;
   createdAt: Date;
+  id: number;
   updatedAt: Date;
+  userId: number;
 }
 
 export class RecoveryModel {
@@ -39,11 +39,11 @@ export class RecoveryModel {
 
   toJSON() {
     return {
-      id: this.id,
       code: this.code,
-      userId: this.userId,
       createdAt: this.createdAt,
+      id: this.id,
       updatedAt: this.updatedAt,
+      userId: this.userId,
     };
   }
 }

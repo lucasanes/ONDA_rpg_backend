@@ -4,22 +4,22 @@ export type FindUserByParams = {
 };
 
 export type SaveUserParams = {
-  username: string;
   email: string;
   password: string;
+  username: string;
 };
 
 export type SaveRecoveryParams = {
-  userId: number;
   code: string;
+  userId: number;
 };
 
 export type FindRecoveryByParams = {
-  email: string;
   code: string;
+  email: string;
 };
 
 export type ChangePasswordParams = {
-  userId: number;
   password: string;
+  userId: number;
 };

@@ -19,7 +19,7 @@ export class AuthRepositoryImpl
   extends BaseRepository
   implements AuthRepository
 {
-  async findUserById(id: number): Promise<UserModel | null> {
+  async getUserById(id: number): Promise<UserModel | null> {
     const user = await this.getRepository(User).findOneBy({
       id,
     });
@@ -31,9 +31,9 @@ export class AuthRepositoryImpl
     return new UserModel(user);
   }
 
-  async findUserBy(params: FindUserByParams): Promise<UserModel | null> {
+  async getUserBy(params: FindUserByParams): Promise<UserModel | null> {
     const user = await this.getRepository(User).findOneBy({
-      email: params.email,
+      ...params,
     });
 
     if (!user) {

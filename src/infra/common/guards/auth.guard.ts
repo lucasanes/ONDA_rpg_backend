@@ -47,7 +47,7 @@ export class AuthGuard implements CanActivate {
         });
       }
 
-      const user = await this.authRepository.findUserById(payload.id);
+      const user = await this.authRepository.getUserById(payload.id);
       if (!user) {
         console.log('AuthGuard: Usuário não encontrado.');
         throw this.exceptionService.unauthorizedException({
