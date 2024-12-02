@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Character } from './character.entity';
+import { Invite } from './invite.entity';
 import { Player } from './player.entity';
 import { Recovery } from './recovery.entity';
 import { Session } from './session.entity';
@@ -39,6 +40,9 @@ export class User {
 
   @OneToMany(() => Recovery, (recovery) => recovery.user)
   recoveries: Relation<Recovery[]>;
+
+  @OneToMany(() => Invite, (invite) => invite.user)
+  invites: Relation<Invite[]>;
 
   @CreateDateColumn({
     name: 'created_at',

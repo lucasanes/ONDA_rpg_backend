@@ -18,14 +18,14 @@ export class SignInUsecaseImpl implements SignInUsecase {
   ) {}
 
   async execute(params: SignInUsecaseInput): Promise<SignInUsecaseOutput> {
-    const user = await this.authRepository.findUserBy({
+    const user = await this.authRepository.getUserBy({
       email: params.email,
     });
 
     if (!user) {
       throw this.exceptionService.notFoundException({
         code_error: 'NOT_FOUND',
-        message: 'Usuário não encontrado.',
+        message: 'Email ou senha inválidos.',
       });
     }
 
@@ -37,7 +37,7 @@ export class SignInUsecaseImpl implements SignInUsecase {
     if (!isPasswordValid) {
       throw this.exceptionService.unauthorizedException({
         code_error: 'INVALID_CREDENTIALS',
-        message: 'Credenciais inválidas.',
+        message: 'Email ou senha inválidos.',
       });
     }
 

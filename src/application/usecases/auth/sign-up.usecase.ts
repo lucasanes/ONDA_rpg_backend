@@ -18,18 +18,18 @@ export class SignUpUsecaseImpl implements SignUpUsecase {
   async execute(params: SignUpUsecaseInput): Promise<SignUpUsecaseOutput> {
     const { username, email, password } = params;
 
-    const usernameAlreadyExists = await this.authRepository.findUserBy({
+    const usernameAlreadyExists = await this.authRepository.getUserBy({
       username,
     });
 
-    const emailAlreadyExists = await this.authRepository.findUserBy({
+    const emailAlreadyExists = await this.authRepository.getUserBy({
       email,
     });
 
     if (usernameAlreadyExists || emailAlreadyExists) {
       this.exceptionService.badRequestException({
         code_error: 'ALREADY_EXISTS',
-        message: 'Este usuário já existe.',
+        message: 'Este email ou nome de usuário já existe.',
       });
     }
 

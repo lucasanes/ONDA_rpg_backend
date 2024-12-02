@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -10,6 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Character } from './character.entity';
+import { Invite } from './invite.entity';
 import { Item } from './item.entity';
 import { Player } from './player.entity';
 import { User } from './user.entity';
@@ -26,6 +28,7 @@ export class Session {
   description: string;
 
   @Column('int', { name: 'user_id' })
+  @Index()
   userId: number;
 
   @ManyToOne(() => User, (user) => user.sessions, { nullable: false })
@@ -40,6 +43,9 @@ export class Session {
 
   @OneToMany(() => Item, (items) => items.session)
   items: Relation<Item[]>;
+
+  @OneToMany(() => Invite, (invite) => invite.session)
+  invites: Relation<Invite[]>;
 
   @CreateDateColumn({
     name: 'created_at',

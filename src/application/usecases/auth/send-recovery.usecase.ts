@@ -21,13 +21,13 @@ export class SendRecoveryUsecaseImpl implements SendRecoveryUsecase {
   ): Promise<SendRecoveryUsecaseOutput> {
     const { email } = params;
 
-    const user = await this.authRepository.findUserBy({
+    const user = await this.authRepository.getUserBy({
       email,
     });
 
     if (!user) {
       throw this.exceptionService.notFoundException({
-        message: 'Usuário não encontrado.',
+        message: 'Email não encontrado.',
         code_error: 'NOT_FOUND',
       });
     }

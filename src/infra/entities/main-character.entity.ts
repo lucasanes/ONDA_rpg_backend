@@ -52,6 +52,7 @@ export class MainCharacter {
 
   @OneToOne(() => Character, (character) => character.mainCharacter)
   @JoinColumn({ name: 'character_id' })
+  @Index()
   character: Relation<Character>;
 
   @CreateDateColumn({
