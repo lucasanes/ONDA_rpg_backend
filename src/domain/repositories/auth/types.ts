@@ -15,6 +15,7 @@ export type SaveRecoveryParams = {
 };
 
 export type FindRecoveryByParams = {
+  email: string;
   code: string;
 };
 

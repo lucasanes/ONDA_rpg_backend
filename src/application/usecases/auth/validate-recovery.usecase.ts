@@ -17,9 +17,9 @@ export class ValidateRecoveryUsecaseImpl implements ValidateRecoveryUsecase {
   async execute(
     params: ValidateRecoveryUsecaseInput,
   ): Promise<ValidateRecoveryUsecaseOutput> {
-    const { code } = params;
+    const { email, code } = params;
 
-    const recovery = await this.authRepository.findRecoveryBy({ code });
+    const recovery = await this.authRepository.findRecoveryBy({ email, code });
 
     if (!recovery) {
       throw this.exceptionService.notFoundException({
