@@ -63,8 +63,17 @@ export class AuthRepositoryImpl
   async findRecoveryBy(
     params: FindRecoveryByParams,
   ): Promise<RecoveryModel | null> {
+    const user = await this.getRepository(User).findOneBy({
+      email: params.email,
+    });
+
+    if (!user) {
+      return null;
+    }
+
     const recovery = await this.getRepository(Recovery).findOneBy({
       code: params.code,
+      userId: user.id,
     });
 
     if (!recovery) {

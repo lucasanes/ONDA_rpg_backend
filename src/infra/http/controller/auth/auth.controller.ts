@@ -2,9 +2,9 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
-  Param,
   Post,
 } from '@nestjs/common';
 import {
@@ -21,10 +21,13 @@ import { ChangePasswordUsecase } from '@src/domain/usecases/auth/change-password
 import { SendRecoveryUsecase } from '@src/domain/usecases/auth/send-recovery.usecase';
 import { SignUpUsecase } from '@src/domain/usecases/auth/sign-up.usecase';
 import { ValidateRecoveryUsecase } from '@src/domain/usecases/auth/validate-recovery.usecase';
+import { ValidateTokenUsecase } from '@src/domain/usecases/auth/validate-token.usecase';
 import { ChangePasswordInputDto } from './dto/in/change-password.dto';
 import { SendRecoveryInputDto } from './dto/in/send-recovery.dto';
 import { SignInInputDto } from './dto/in/sign-in.dto';
 import { SignUpInputDto } from './dto/in/sign-up.dto';
+import { ValidateRecoveryInputDto } from './dto/in/validate-recovery.dto';
+import { MeOutputDto } from './dto/out/me.dto';
 import { SignInOutputDto } from './dto/out/sign-in.dto';
 import { ValidateRecoveryOutputDto } from './dto/out/validate-recovery.dto';
 
@@ -38,7 +41,30 @@ export class AuthController {
     private readonly sendRecoveryUsecase: SendRecoveryUsecase,
     private readonly validateRecoveryUsecase: ValidateRecoveryUsecase,
     private readonly changePasswordUsecase: ChangePasswordUsecase,
+    private readonly validateTokenUsecase: ValidateTokenUsecase,
   ) {}
+
+  @Get('me')
+  @ApiOperation({
+    description: 'Retorna os dados do usuário logado.',
+    summary: 'Retorna os dados do usuário logado.',
+  })
+  @ApiDefaultResponse({
+    description: 'Dados do usuário logado.',
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not Found.',
+  })
+  async me(
+    @Headers('authorization') authorization: string,
+  ): Promise<MeOutputDto> {
+    return await this.validateTokenUsecase.execute({
+      token: authorization,
+    });
+  }
 
   @Post('sign-up')
   @ApiOperation({
@@ -116,7 +142,7 @@ export class AuthController {
     });
   }
 
-  @Get('validate-recovery/:code')
+  @Post('validate-recovery')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     description: 'Valida o código de recuperação de senha.',
@@ -132,9 +158,12 @@ export class AuthController {
     description: 'Not Found.',
   })
   async validateRecovery(
-    @Param('code') code: string,
+    @Body() body: ValidateRecoveryInputDto,
   ): Promise<ValidateRecoveryOutputDto> {
+    const { email, code } = body;
+
     return await this.validateRecoveryUsecase.execute({
+      email,
       code,
     });
   }

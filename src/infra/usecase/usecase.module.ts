@@ -5,11 +5,13 @@ import { SendRecoveryUsecaseImpl } from '@src/application/usecases/auth/send-rec
 import { SignInUsecaseImpl } from '@src/application/usecases/auth/sign-in.usecase';
 import { SignUpUsecaseImpl } from '@src/application/usecases/auth/sign-up.usecase';
 import { ValidateRecoveryUsecaseImpl } from '@src/application/usecases/auth/validate-recovery.usecase';
+import { ValidateTokenUsecaseImpl } from '@src/application/usecases/auth/validate-token.usecase';
 import { ChangePasswordUsecase } from '@src/domain/usecases/auth/change-password.usecase';
 import { SendRecoveryUsecase } from '@src/domain/usecases/auth/send-recovery.usecase';
 import { SignInUsecase } from '@src/domain/usecases/auth/sign-in.usecase';
 import { SignUpUsecase } from '@src/domain/usecases/auth/sign-up.usecase';
 import { ValidateRecoveryUsecase } from '@src/domain/usecases/auth/validate-recovery.usecase';
+import { ValidateTokenUsecase } from '@src/domain/usecases/auth/validate-token.usecase';
 
 const usecases: Provider[] = [
   JwtService,
@@ -32,6 +34,10 @@ const usecases: Provider[] = [
   {
     provide: ChangePasswordUsecase,
     useClass: ChangePasswordUsecaseImpl,
+  },
+  {
+    provide: ValidateTokenUsecase,
+    useClass: ValidateTokenUsecaseImpl,
   },
 ];
 
