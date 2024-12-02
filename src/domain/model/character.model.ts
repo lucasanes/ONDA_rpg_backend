@@ -1,44 +1,48 @@
+import { ItemModel } from './item.model';
+
 export interface MainCharacterProps {
+  age: number;
+  characterId: number;
+  class: string;
+  createdAt: Date;
+  divinity: string;
   id: number;
   name: string;
-  xp: number;
-  age: number;
-  class: string;
-  race: string;
-  divinity: string;
   origin: string;
-  ts: number;
-  tp: number;
+  race: string;
   to: number;
-  characterId: number;
-  createdAt: Date;
+  tp: number;
+  ts: number;
   updatedAt: Date;
+  xp: number;
 }
 
 export interface StatusCharacterProps {
-  id: number;
-  hp: number;
-  currentHp: number;
-  mp: number;
-  currentMp: number;
-  mun: number;
-  currentMun: number;
-  defense: number;
   cd: number;
   characterId: number;
   createdAt: Date;
+  currentHp: number;
+  currentMp: number;
+  currentMun: number;
+  defense: number;
+  hp: number;
+  id: number;
+  mp: number;
+  mun: number;
+  portrait?: string;
   updatedAt: Date;
 }
 
 export interface CharacterModelProps {
+  createdAt: Date;
   id: number;
   isPublic: boolean;
-  userId: number;
-  sessionId?: number;
+  items?: ItemModel[];
   mainCharacter: MainCharacterProps;
+  sessionId?: number;
   statusCharacter: StatusCharacterProps;
-  createdAt: Date;
   updatedAt: Date;
+  userId: number;
 }
 
 export class CharacterModel {
@@ -68,6 +72,10 @@ export class CharacterModel {
     return this.props.statusCharacter;
   }
 
+  get items(): ItemModel[] | undefined {
+    return this.props.items || [];
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -78,42 +86,15 @@ export class CharacterModel {
 
   toJSON() {
     return {
+      createdAt: this.createdAt,
       id: this.id,
       isPublic: this.isPublic,
-      userId: this.userId,
+      items: this.items,
+      mainCharacter: this.mainCharacter,
       sessionId: this.sessionId,
-      mainCharacter: {
-        id: this.mainCharacter.id,
-        name: this.mainCharacter.name,
-        xp: this.mainCharacter.xp,
-        age: this.mainCharacter.age,
-        class: this.mainCharacter.class,
-        race: this.mainCharacter.race,
-        divinity: this.mainCharacter.divinity,
-        origin: this.mainCharacter.origin,
-        ts: this.mainCharacter.ts,
-        tp: this.mainCharacter.tp,
-        to: this.mainCharacter.to,
-        characterId: this.mainCharacter.characterId,
-        createdAt: this.mainCharacter.createdAt,
-        updatedAt: this.mainCharacter.updatedAt,
-      },
-      statusCharacter: {
-        id: this.statusCharacter.id,
-        hp: this.statusCharacter.hp,
-        currentHp: this.statusCharacter.currentHp,
-        mp: this.statusCharacter.mp,
-        currentMp: this.statusCharacter.currentMp,
-        mun: this.statusCharacter.mun,
-        currentMun: this.statusCharacter.currentMun,
-        defense: this.statusCharacter.defense,
-        cd: this.statusCharacter.cd,
-        characterId: this.statusCharacter.characterId,
-        createdAt: this.statusCharacter.createdAt,
-        updatedAt: this.statusCharacter.updatedAt,
-      },
-      createdAt: this.createdAt,
+      statusCharacter: this.statusCharacter,
       updatedAt: this.updatedAt,
+      userId: this.userId,
     };
   }
 }

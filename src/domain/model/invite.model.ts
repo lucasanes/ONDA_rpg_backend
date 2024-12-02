@@ -1,9 +1,12 @@
+import { SessionModel } from './session.model';
+
 export interface InviteModelProps {
-  id: number;
-  userId: number;
-  sessionId: number;
   createdAt: Date;
+  id: number;
+  session: SessionModel;
+  sessionId: number;
   updatedAt: Date;
+  userId: number;
 }
 
 export class InviteModel {
@@ -21,6 +24,10 @@ export class InviteModel {
     return this.props.sessionId;
   }
 
+  get session(): SessionModel {
+    return this.props.session;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -31,11 +38,12 @@ export class InviteModel {
 
   toJSON() {
     return {
-      id: this.id,
-      userId: this.userId,
-      sessionId: this.sessionId,
       createdAt: this.createdAt,
+      id: this.id,
+      session: this.session.toJSON(),
+      sessionId: this.sessionId,
       updatedAt: this.updatedAt,
+      userId: this.userId,
     };
   }
 }

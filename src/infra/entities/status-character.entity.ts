@@ -16,22 +16,25 @@ export class StatusCharacter {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
+  @Column('varchar', { nullable: true })
+  portrait?: string;
+
   @Column('int', { default: 0 })
   hp: number;
 
-  @Column('int', { name: 'current_hp', default: 0 })
+  @Column('int', { default: 0, name: 'current_hp' })
   currentHp: number;
 
   @Column('int', { default: 0 })
   mp: number;
 
-  @Column('int', { name: 'current_mp', default: 0 })
+  @Column('int', { default: 0, name: 'current_mp' })
   currentMp: number;
 
   @Column('int', { default: 0 })
   mun: number;
 
-  @Column('int', { name: 'current_mun', default: 0 })
+  @Column('int', { default: 0, name: 'current_mun' })
   currentMun: number;
 
   @Column('int', { default: 0 })
@@ -44,22 +47,24 @@ export class StatusCharacter {
   @Index()
   characterId: number;
 
-  @OneToOne(() => Character, (character) => character.statusCharacter)
+  @OneToOne(() => Character, (character) => character.statusCharacter, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'character_id' })
   character: Relation<Character>;
 
   @CreateDateColumn({
+    default: () => 'CURRENT_TIMESTAMP',
     name: 'created_at',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
-    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

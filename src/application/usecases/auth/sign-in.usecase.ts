@@ -43,17 +43,17 @@ export class SignInUsecaseImpl implements SignInUsecase {
 
     const token = this.jwtService.sign(
       {
-        id: user.id,
-        email: user.email,
-        username: user.username,
         createdAt: user.createdAt,
+        email: user.email,
+        id: user.id,
         updatedAt: user.updatedAt,
+        username: user.username,
       },
       {
         secret: process.env.JWT_SECRET,
       },
     );
 
-    return { user, token };
+    return { token, user };
   }
 }

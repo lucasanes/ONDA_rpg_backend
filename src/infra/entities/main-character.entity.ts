@@ -50,23 +50,25 @@ export class MainCharacter {
   @Index()
   characterId: number;
 
-  @OneToOne(() => Character, (character) => character.mainCharacter)
+  @OneToOne(() => Character, (character) => character.mainCharacter, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'character_id' })
   @Index()
   character: Relation<Character>;
 
   @CreateDateColumn({
+    default: () => 'CURRENT_TIMESTAMP',
     name: 'created_at',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
-    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

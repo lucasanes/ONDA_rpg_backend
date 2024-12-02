@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { Character } from './character.entity';
 import { Invite } from './invite.entity';
-import { Player } from './player.entity';
 import { Recovery } from './recovery.entity';
 import { Session } from './session.entity';
 
@@ -35,9 +34,6 @@ export class User {
   @OneToMany(() => Character, (character) => character.user)
   characters: Relation<Character[]>;
 
-  @OneToMany(() => Player, (players) => players.user)
-  playerInSessions: Relation<Player[]>;
-
   @OneToMany(() => Recovery, (recovery) => recovery.user)
   recoveries: Relation<Recovery[]>;
 
@@ -45,17 +41,17 @@ export class User {
   invites: Relation<Invite[]>;
 
   @CreateDateColumn({
-    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

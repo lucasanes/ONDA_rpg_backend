@@ -1,10 +1,16 @@
+import { CharacterModel } from './character.model';
+import { ItemModel } from './item.model';
+
 export interface SessionModelProps {
-  id: number;
-  name: string;
-  description: string;
-  userId: number;
+  characters?: CharacterModel[];
   createdAt: Date;
+  description: string;
+  id: number;
+  items?: ItemModel[];
+  name: string;
+  players?: string[];
   updatedAt: Date;
+  userId: number;
 }
 
 export class SessionModel {
@@ -26,6 +32,18 @@ export class SessionModel {
     return this.props.userId;
   }
 
+  get players(): string[] | undefined {
+    return this.props.players || [];
+  }
+
+  get characters(): CharacterModel[] | undefined {
+    return this.props.characters || [];
+  }
+
+  get items(): ItemModel[] | undefined {
+    return this.props.items || [];
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -36,12 +54,15 @@ export class SessionModel {
 
   toJSON() {
     return {
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      userId: this.userId,
+      characters: this.characters.map((character) => character.toJSON()),
       createdAt: this.createdAt,
+      description: this.description,
+      id: this.id,
+      items: this.items.map((item) => item.toJSON()),
+      name: this.name,
+      players: this.players,
       updatedAt: this.updatedAt,
+      userId: this.userId,
     };
   }
 }

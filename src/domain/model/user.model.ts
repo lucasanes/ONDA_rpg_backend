@@ -1,10 +1,10 @@
 export interface UserModelProps {
-  id: number;
-  username: string;
-  email: string;
-  password?: string;
   createdAt: Date;
+  email: string;
+  id: number;
+  password?: string;
   updatedAt: Date;
+  username: string;
 }
 
 export class UserModel {
@@ -36,11 +36,11 @@ export class UserModel {
 
   toJSON() {
     return {
-      id: this.id,
-      username: this.username,
-      email: this.email,
       createdAt: this.createdAt,
+      email: this.email,
+      id: this.id,
       updatedAt: this.updatedAt,
+      username: this.username,
     };
   }
 }

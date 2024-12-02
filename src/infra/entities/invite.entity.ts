@@ -21,29 +21,35 @@ export class Invite {
   @Index()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.invites, { nullable: false })
+  @ManyToOne(() => User, (user) => user.invites, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: Relation<User>;
 
   @Column('int', { name: 'session_id' })
   sessionId: number;
 
-  @ManyToOne(() => Session, (session) => session.invites, { nullable: false })
+  @ManyToOne(() => Session, (session) => session.invites, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'session_id' })
   session: Relation<Session>;
 
   @CreateDateColumn({
-    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

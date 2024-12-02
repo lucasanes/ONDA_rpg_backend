@@ -27,8 +27,8 @@ export class SendRecoveryUsecaseImpl implements SendRecoveryUsecase {
 
     if (!user) {
       throw this.exceptionService.notFoundException({
-        message: 'Email não encontrado.',
         code_error: 'NOT_FOUND',
+        message: 'Email não encontrado.',
       });
     }
 
@@ -36,24 +36,24 @@ export class SendRecoveryUsecaseImpl implements SendRecoveryUsecase {
 
     if (!process.env.EMAIL_PASSWORD) {
       throw this.exceptionService.internalServerErrorException({
-        message: 'Senha de email não configurada.',
         code_error: 'ENV_NOT_FOUND',
+        message: 'Senha de email não configurada.',
       });
     }
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
+        user: process.env.EMAIL_USER,
       },
+      service: 'gmail',
     });
 
     const mailOptions = {
       from: 'ondarpg@gmail.com',
-      to: email,
       subject: 'ONDA - Recuperar Senha',
       text: `Seu código de recuperação é: ${code}`,
+      to: email,
     };
 
     await transporter.sendMail(mailOptions);

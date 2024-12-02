@@ -22,22 +22,24 @@ export class Character {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
-  @Column({ name: 'is_public', type: 'boolean', default: false })
+  @Column({ default: false, name: 'is_public', type: 'boolean' })
   isPublic: boolean;
 
   @Column({ name: 'user_id', type: 'int' })
   @Index()
   userId: number;
 
-  @Column({ name: 'session_id', type: 'int', nullable: true })
+  @Column({ name: 'session_id', nullable: true, type: 'int' })
   @Index()
   sessionId?: number;
 
-  @ManyToOne(() => User, (user) => user.characters)
+  @ManyToOne(() => User, (user) => user.characters, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: Relation<User>;
 
-  @ManyToOne(() => Session, (session) => session.characters)
+  @ManyToOne(() => Session, (session) => session.characters, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'session_id' })
   session: Relation<Session>;
 
@@ -54,17 +56,17 @@ export class Character {
   statusCharacter: Relation<StatusCharacter>;
 
   @CreateDateColumn({
+    default: () => 'CURRENT_TIMESTAMP',
     name: 'created_at',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
-    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

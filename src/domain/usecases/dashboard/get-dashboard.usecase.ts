@@ -8,9 +8,9 @@ export type GetDashboardUsecaseInput = {
 };
 
 export type GetDashboardUsecaseOutput = {
-  sessions: SessionModel[];
   characters: CharacterModel[];
   invites: InviteModel[];
+  sessions: SessionModel[];
 };
 
 export abstract class GetDashboardUsecase extends Usecase<

@@ -36,9 +36,9 @@ export class SignUpUsecaseImpl implements SignUpUsecase {
     const passwrodEncrypted = await bcrypt.hash(password, 10);
 
     const user = await this.authRepository.saveUser({
-      username: username.toLocaleLowerCase(),
       email: email.toLocaleLowerCase(),
       password: passwrodEncrypted,
+      username: username.toLocaleLowerCase(),
     });
 
     if (!user) {

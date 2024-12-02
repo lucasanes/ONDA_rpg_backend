@@ -13,7 +13,6 @@ import {
 import { Character } from './character.entity';
 import { Invite } from './invite.entity';
 import { Item } from './item.entity';
-import { Player } from './player.entity';
 import { User } from './user.entity';
 
 @Entity('sessions')
@@ -31,12 +30,12 @@ export class Session {
   @Index()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.sessions, { nullable: false })
+  @ManyToOne(() => User, (user) => user.sessions, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: Relation<User>;
-
-  @OneToMany(() => Player, (players) => players.session)
-  players: Relation<Player[]>;
 
   @OneToMany(() => Character, (character) => character.session)
   characters: Relation<Character[]>;
@@ -48,17 +47,17 @@ export class Session {
   invites: Relation<Invite[]>;
 
   @CreateDateColumn({
-    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

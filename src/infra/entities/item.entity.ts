@@ -31,19 +31,32 @@ export class Item {
   @Index()
   characterId?: number;
 
-  @ManyToOne(() => Session, (session) => session.items, { nullable: true })
+  @ManyToOne(() => Session, (session) => session.items, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'session_id' })
   session?: Relation<Session>;
 
   @ManyToOne(() => Character, (character) => character.items, {
     nullable: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'character_id' })
   character?: Relation<Character>;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+    type: 'timestamp',
+  })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'updated_at',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
+  })
+  updatedAt: Date;
 }
