@@ -28,8 +28,11 @@ export class SessionRepositoryImpl
       },
     });
 
-    const players = sessions.reduce(
-      (acc, session) => [...acc, ...session.characters.map((c) => c.user)],
+    const players: string[] = sessions.reduce(
+      (acc: string[], session) => [
+        ...acc,
+        ...session.characters.map((c) => c.user.username),
+      ],
       [],
     );
 

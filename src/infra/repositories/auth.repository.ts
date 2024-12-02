@@ -33,7 +33,7 @@ export class AuthRepositoryImpl
 
   async getUserBy(params: FindUserByParams): Promise<UserModel | null> {
     const user = await this.getRepository(User).findOneBy({
-      email: params.email,
+      ...params,
     });
 
     if (!user) {

@@ -26,10 +26,10 @@ export class InviteRepositoryImpl
       },
     });
 
-    const players = invites.reduce(
-      (acc, invite) => [
+    const players: string[] = invites.reduce(
+      (acc: string[], invite) => [
         ...acc,
-        ...invite.session.characters.map((c) => c.user),
+        ...invite.session.characters.map((c) => c.user.username),
       ],
       [],
     );

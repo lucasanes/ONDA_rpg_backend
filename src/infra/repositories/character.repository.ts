@@ -75,17 +75,27 @@ export class CharacterRepositoryImpl
   async updateMain(params: UpdateMainParams): Promise<void> {
     const { id, ...rest } = params;
 
-    await this.getRepository(MainCharacter).update(id, {
-      ...rest,
-    });
+    await this.getRepository(MainCharacter).update(
+      {
+        characterId: id,
+      },
+      {
+        ...rest,
+      },
+    );
   }
 
   async updateStatus(params: UpdateStatusParams): Promise<void> {
     const { id, ...rest } = params;
 
-    await this.getRepository(StatusCharacter).update(id, {
-      ...rest,
-    });
+    await this.getRepository(StatusCharacter).update(
+      {
+        characterId: id,
+      },
+      {
+        ...rest,
+      },
+    );
   }
 
   async delete(id: number): Promise<void> {
