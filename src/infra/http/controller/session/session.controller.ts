@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiDefaultResponse,
@@ -9,9 +9,7 @@ import {
 } from '@nestjs/swagger';
 
 import { GetDashboardUsecase } from '@src/domain/usecases/dashboard/get-dashboard.usecase';
-import { User } from '@src/infra/common/decorator/user.decorator';
 import { AuthGuard } from '@src/infra/common/guards/auth.guard';
-import { UserType } from '@src/infra/types/user.type';
 import { GetDashboardOutputDto } from './dto/out/me.dto';
 
 @ApiTags('Dashboard')
@@ -21,7 +19,7 @@ import { GetDashboardOutputDto } from './dto/out/me.dto';
 export class DashboardController {
   constructor(private readonly getDashboardUsecase: GetDashboardUsecase) {}
 
-  @Get('')
+  @Get(':userId')
   @ApiOperation({
     description: 'Retorna o dashboard do usuário.',
     summary: 'Retorna o dashboard do usuário.',
@@ -35,9 +33,11 @@ export class DashboardController {
   @ApiNotFoundResponse({
     description: 'Not Found.',
   })
-  async getDashboard(@User() user: UserType): Promise<GetDashboardOutputDto> {
+  async getDashboard(
+    @Param('userId') userId: number,
+  ): Promise<GetDashboardOutputDto> {
     return await this.getDashboardUsecase.execute({
-      userId: user.id,
+      userId,
     });
   }
 }

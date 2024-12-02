@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Headers,
   HttpCode,
   HttpStatus,
   Post,
@@ -22,6 +21,8 @@ import { SendRecoveryUsecase } from '@src/domain/usecases/auth/send-recovery.use
 import { SignUpUsecase } from '@src/domain/usecases/auth/sign-up.usecase';
 import { ValidateRecoveryUsecase } from '@src/domain/usecases/auth/validate-recovery.usecase';
 import { ValidateTokenUsecase } from '@src/domain/usecases/auth/validate-token.usecase';
+import { User } from '@src/infra/common/decorator/user.decorator';
+import { UserType } from '@src/infra/types/user.type';
 import { ChangePasswordInputDto } from './dto/in/change-password.dto';
 import { SendRecoveryInputDto } from './dto/in/send-recovery.dto';
 import { SignInInputDto } from './dto/in/sign-in.dto';
@@ -58,12 +59,8 @@ export class AuthController {
   @ApiNotFoundResponse({
     description: 'Not Found.',
   })
-  async me(
-    @Headers('authorization') authorization: string,
-  ): Promise<MeOutputDto> {
-    return await this.validateTokenUsecase.execute({
-      token: authorization,
-    });
+  async me(@User() user: UserType): Promise<MeOutputDto> {
+    return user;
   }
 
   @Post('sign-up')

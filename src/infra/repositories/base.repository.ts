@@ -5,7 +5,7 @@ import { DataSource, EntityManager, ObjectLiteral, Repository } from 'typeorm';
 import {
   ENTITY_MANAGER_KEY,
   RequestWithEntityManager,
-} from '../types/request-with-entity.manager';
+} from '../types/request-with-entity.manager.type';
 
 export class BaseRepository {
   constructor(
