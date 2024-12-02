@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 
 import { Character } from '@src/infra/entities/character.entity';
 import { Invite } from '@src/infra/entities/invite.entity';
+import { Item } from '@src/infra/entities/item.entity';
 import { Session } from 'inspector/promises';
 import AppDataSource from './datasource';
 
@@ -41,5 +42,10 @@ export const databaseProviders: Provider[] = [
     inject: ['DATA_SOURCE'],
     provide: Datasources.INVITE_REPOSITORY,
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Invite),
+  },
+  {
+    inject: ['DATA_SOURCE'],
+    provide: Datasources.ITEM_REPOSITORY,
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(Item),
   },
 ];
