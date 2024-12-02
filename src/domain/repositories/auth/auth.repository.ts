@@ -10,8 +10,8 @@ import {
 } from './types';
 
 export abstract class AuthRepository {
-  abstract findUserById(id: number): Promise<UserModel | null>;
-  abstract findUserBy(params: FindUserByParams): Promise<UserModel | null>;
+  abstract getUserById(id: number): Promise<UserModel | null>;
+  abstract getUserBy(params: FindUserByParams): Promise<UserModel | null>;
   abstract saveUser(params: SaveUserParams): Promise<UserModel>;
   abstract changePassword(params: ChangePasswordParams): Promise<void>;
   abstract findRecoveryBy(

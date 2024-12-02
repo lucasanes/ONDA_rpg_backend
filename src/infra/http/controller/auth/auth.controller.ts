@@ -85,8 +85,8 @@ export class AuthController {
 
     await this.signUpUsecase.execute({
       email,
-      username,
       password,
+      username,
     });
   }
 
@@ -114,8 +114,8 @@ export class AuthController {
     });
 
     return {
-      user: response.user,
       token: response.token,
+      user: response.user,
     };
   }
 
@@ -163,8 +163,8 @@ export class AuthController {
     const { email, code } = body;
 
     return await this.validateRecoveryUsecase.execute({
-      email,
       code,
+      email,
     });
   }
 
@@ -187,8 +187,8 @@ export class AuthController {
     const { userId, password } = body;
 
     await this.changePasswordUsecase.execute({
-      userId,
       password,
+      userId,
     });
   }
 }

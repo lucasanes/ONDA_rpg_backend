@@ -8,7 +8,10 @@ import {
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
+import { Character } from './character.entity';
+import { Invite } from './invite.entity';
 import { Recovery } from './recovery.entity';
+import { Session } from './session.entity';
 
 @Entity('users')
 export class User {
@@ -25,30 +28,30 @@ export class User {
   @Column('varchar')
   password: string;
 
+  @OneToMany(() => Session, (session) => session.user)
+  sessions: Relation<Session[]>;
+
+  @OneToMany(() => Character, (character) => character.user)
+  characters: Relation<Character[]>;
+
   @OneToMany(() => Recovery, (recovery) => recovery.user)
   recoveries: Relation<Recovery[]>;
 
-  // @OneToMany(() => Session, (session) => session.user)
-  // sessions: Session[];
-
-  // @OneToMany(() => Players, (players) => players.user)
-  // players: Players[];
-
-  // @OneToMany(() => Character, (character) => character.user)
-  // characters: Character[];
+  @OneToMany(() => Invite, (invite) => invite.user)
+  invites: Relation<Invite[]>;
 
   @CreateDateColumn({
-    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }

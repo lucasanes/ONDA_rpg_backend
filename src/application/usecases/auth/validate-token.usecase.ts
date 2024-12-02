@@ -22,7 +22,9 @@ export class ValidateTokenUsecaseImpl implements ValidateTokenUsecase {
 
     const tokenWithoutBearer = token.split(' ')[1];
 
-    const tokenIsValid = this.jwtService.verify(tokenWithoutBearer);
+    const tokenIsValid = this.jwtService.verify(tokenWithoutBearer, {
+      secret: process.env.JWT_SECRET,
+    });
 
     if (!tokenIsValid) {
       throw this.exceptionService.unauthorizedException({

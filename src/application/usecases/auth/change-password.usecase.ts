@@ -20,7 +20,7 @@ export class ChangePasswordUsecaseImpl implements ChangePasswordUsecase {
   ): Promise<ChangePasswordUsecaseOutput> {
     const { password, userId } = params;
 
-    const user = await this.authRepository.findUserById(userId);
+    const user = await this.authRepository.getUserById(userId);
 
     if (!user) {
       throw this.exceptionService.notFoundException({

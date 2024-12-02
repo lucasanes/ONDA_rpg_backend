@@ -7,6 +7,7 @@ import { SharedModule } from './infra/shared.module';
 import { UsecaseModule } from './infra/usecase/usecase.module';
 
 @Module({
+  exports: [],
   imports: [
     SharedModule,
     HttpModule,
@@ -15,7 +16,6 @@ import { UsecaseModule } from './infra/usecase/usecase.module';
     RepositoryModule,
     ExceptionsModule,
   ],
-  exports: [],
   providers: [],
 })
 export class AppModule {}

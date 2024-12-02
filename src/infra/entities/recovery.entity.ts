@@ -23,22 +23,25 @@ export class Recovery {
   @Index()
   code: string;
 
-  @ManyToOne(() => User, (user) => user.recoveries)
+  @ManyToOne(() => User, (user) => user.recoveries, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: Relation<User>;
 
   @CreateDateColumn({
-    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
-    type: 'timestamp',
+    name: 'updated_at',
     onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
   })
   updatedAt: Date;
 }
