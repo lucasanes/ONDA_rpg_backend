@@ -52,7 +52,9 @@ export class CharacterRepositoryImpl
         items: true,
         mainCharacter: true,
         session: {
-          characters: true,
+          characters: {
+            mainCharacter: true,
+          },
         },
         statusCharacter: true,
       },

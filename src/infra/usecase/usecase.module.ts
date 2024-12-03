@@ -8,7 +8,10 @@ import { ValidateRecoveryUsecaseImpl } from '@src/application/usecases/auth/vali
 import { ValidateTokenUsecaseImpl } from '@src/application/usecases/auth/validate-token.usecase';
 import { CreateCharacterUsecaseImpl } from '@src/application/usecases/character/create-character.usecase';
 import { DeleteCharacterUsecaseImpl } from '@src/application/usecases/character/delete-character.usecase';
+import { GetCharacterUsecaseImpl } from '@src/application/usecases/character/get-character.usecase';
 import { UpdateCharacterUsecaseImpl } from '@src/application/usecases/character/update-character.usecase';
+import { UpdateMainCharacterUsecaseImpl } from '@src/application/usecases/character/update-main-character.usecase';
+import { UpdateStatusCharacterUsecaseImpl } from '@src/application/usecases/character/update-status-character.usecase';
 import { GetDashboardUsecaseImpl } from '@src/application/usecases/dashboard/get-dashboard.usecase';
 import { AcceptInviteUsecaseImpl } from '@src/application/usecases/invite/accept-invite.usecase';
 import { CreateInviteUsecaseImpl } from '@src/application/usecases/invite/create-invite.usecase';
@@ -24,7 +27,10 @@ import { ValidateRecoveryUsecase } from '@src/domain/usecases/auth/validate-reco
 import { ValidateTokenUsecase } from '@src/domain/usecases/auth/validate-token.usecase';
 import { CreateCharacterUsecase } from '@src/domain/usecases/character/create-character.usecase';
 import { DeleteCharacterUsecase } from '@src/domain/usecases/character/delete-character.usecase';
+import { GetCharacterUsecase } from '@src/domain/usecases/character/get-character.usecase';
 import { UpdateCharacterUsecase } from '@src/domain/usecases/character/update-character.usecase';
+import { UpdateMainCharacterUsecase } from '@src/domain/usecases/character/update-main-character.usecase';
+import { UpdateStatusCharacterUsecase } from '@src/domain/usecases/character/update-status-character.usecase';
 import { GetDashboardUsecase } from '@src/domain/usecases/dashboard/get-dashboard.usecase';
 import { AcceptInviteUsecase } from '@src/domain/usecases/invite/accept-invite.usecase';
 import { CreateInviteUsecase } from '@src/domain/usecases/invite/create-invite.usecase';
@@ -98,6 +104,18 @@ const usecases: Provider[] = [
   {
     provide: DeleteInviteUsecase,
     useClass: DeleteInviteUsecaseImpl,
+  },
+  {
+    provide: GetCharacterUsecase,
+    useClass: GetCharacterUsecaseImpl,
+  },
+  {
+    provide: UpdateMainCharacterUsecase,
+    useClass: UpdateMainCharacterUsecaseImpl,
+  },
+  {
+    provide: UpdateStatusCharacterUsecase,
+    useClass: UpdateStatusCharacterUsecaseImpl,
   },
 ];
 

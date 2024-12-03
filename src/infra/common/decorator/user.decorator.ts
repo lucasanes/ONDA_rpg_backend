@@ -9,10 +9,7 @@ export const User = createParamDecorator((_, ctx: ExecutionContext) => {
   const exceptionService = new ExceptionServiceImpl();
 
   if (!authorization) {
-    throw exceptionService.unauthorizedException({
-      code_error: 'UNAUTHORIZED',
-      message: 'Token não encontrado.',
-    });
+    return null;
   }
 
   const token = authorization.split(' ')[1];
