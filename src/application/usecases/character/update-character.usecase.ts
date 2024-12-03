@@ -20,13 +20,10 @@ export class UpdateCharacterUsecaseImpl implements UpdateCharacterUsecase {
     const character = await this.characterRepository.getById(params.id);
 
     if (!character) {
-      throw this.exceptionService.businessException(
-        {
-          code_error: 'NOT_FOUND',
-          message: 'Personagem não encontrado.',
-        },
-        404,
-      );
+      throw this.exceptionService.notFoundException({
+        code_error: 'NOT_FOUND',
+        message: 'Personagem não encontrado.',
+      });
     }
 
     if (params.isPublic == undefined && params.sessionId == undefined) {
