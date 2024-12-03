@@ -30,6 +30,15 @@ export class AcceptInviteUsecaseImpl implements AcceptInviteUsecase {
       });
     }
 
+    const character = await this.characterRepository.getById(characterId);
+
+    if (!character) {
+      throw this.exceptionService.notFoundException({
+        code_error: 'NOT_FOUND',
+        message: 'Character not found',
+      });
+    }
+
     await this.characterRepository.update({
       id: characterId,
       sessionId: invite.sessionId,

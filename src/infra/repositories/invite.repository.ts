@@ -13,12 +13,16 @@ export class InviteRepositoryImpl
   extends BaseRepository
   implements InviteRepository
 {
-  async getById(id: number): Promise<InviteModel> {
+  async getById(id: number): Promise<InviteModel | null> {
     const invite = await this.getRepository(Invite).findOne({
       where: {
         id,
       },
     });
+
+    if (!invite) {
+      return null;
+    }
 
     return new InviteModel({
       ...invite,
