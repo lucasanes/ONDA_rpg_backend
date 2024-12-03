@@ -9,10 +9,10 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiDefaultResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -39,8 +39,9 @@ export class InviteController {
     description: 'Criar um novo convite.',
     summary: 'Criar um novo convite.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Convite criado.',
+    status: 201,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -59,8 +60,9 @@ export class InviteController {
     description: 'Aceitar um convite.',
     summary: 'Aceitar um convite.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Convite aceito.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -83,8 +85,9 @@ export class InviteController {
     description: 'Deletar um convite.',
     summary: 'Deletar um convite.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Convite deletado.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',

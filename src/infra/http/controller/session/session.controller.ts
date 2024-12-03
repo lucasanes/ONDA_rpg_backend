@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   Put,
@@ -9,20 +10,22 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiDefaultResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { CreateSessionUsecase } from '@src/domain/usecases/session/create-session.usecase';
 import { DeleteSessionUsecase } from '@src/domain/usecases/session/delete-session.usecase';
+import { GetSessionUsecase } from '@src/domain/usecases/session/get-session.usecase';
 import { UpdateSessionUsecase } from '@src/domain/usecases/session/update-session.usecase';
 import { User } from '@src/infra/common/decorator/user.decorator';
 import { AuthGuard } from '@src/infra/common/guards/auth.guard';
 import { UserType } from '@src/infra/types/user.type';
 import { UpsertSessionInputDto } from './dto/in/upsert-session.dto';
+import { GetSessionOutputDto } from './dto/out/get-session.dto';
 import { UpsertSessionOutputDto } from './dto/out/upsert-session.dto';
 
 @ApiTags('Session')
@@ -31,18 +34,47 @@ import { UpsertSessionOutputDto } from './dto/out/upsert-session.dto';
 @Controller('sessions')
 export class SessionController {
   constructor(
+    private readonly getSessionUsecase: GetSessionUsecase,
     private readonly createSessionUsecase: CreateSessionUsecase,
     private readonly updateSessionUsecase: UpdateSessionUsecase,
     private readonly deleteSessionUsecase: DeleteSessionUsecase,
   ) {}
+
+  @Get(':id')
+  @ApiOperation({
+    description: 'Buscar uma sessão.',
+    summary: 'Buscar uma sessão.',
+  })
+  @ApiResponse({
+    description: 'Sessão encontrada.',
+    status: 200,
+    type: GetSessionOutputDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not Found.',
+  })
+  async getSession(
+    @User() user: UserType,
+    @Param('id') id: number,
+  ): Promise<GetSessionOutputDto> {
+    return await this.getSessionUsecase.execute({
+      id,
+      userId: user.id,
+    });
+  }
 
   @Post()
   @ApiOperation({
     description: 'Criar uma nova sessão.',
     summary: 'Criar uma nova sessão.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Sessão criada.',
+    status: 201,
+    type: UpsertSessionOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -68,8 +100,9 @@ export class SessionController {
     description: 'Atualizar uma sessão.',
     summary: 'Atualizar uma sessão.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Sessão atualizada.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -95,8 +128,9 @@ export class SessionController {
     description: 'Deletar uma sessão.',
     summary: 'Deletar uma sessão.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Sessão deletada.',
+    status: 204,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',

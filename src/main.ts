@@ -10,7 +10,13 @@ async function bootstrap() {
     origin: ['http://localhost:3000', 'https://rpg.lucasanes.com'],
   });
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidNonWhitelisted: true,
+      transform: true,
+      whitelist: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Onda RPG API')

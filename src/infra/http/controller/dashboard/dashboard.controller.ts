@@ -1,10 +1,10 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiDefaultResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -21,13 +21,15 @@ import { GetDashboardOutputDto } from './dto/out/get-dashboard.dto';
 export class DashboardController {
   constructor(private readonly getDashboardUsecase: GetDashboardUsecase) {}
 
-  @Get('')
+  @Get()
   @ApiOperation({
     description: 'Retorna o dashboard do usuário.',
     summary: 'Retorna o dashboard do usuário.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Dashboard do usuário.',
+    status: 200,
+    type: GetDashboardOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',

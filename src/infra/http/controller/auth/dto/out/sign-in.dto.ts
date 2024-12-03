@@ -1,21 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SignInOutputDto {
-  @ApiProperty({
-    example: {
-      email: 'onda@gmail.com',
-      id: 1,
-      username: 'John Doe',
-    },
-  })
-  user: UserDto;
-
-  @ApiProperty({
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-  })
-  token: string;
-}
-
 class UserDto {
   @ApiProperty({
     example: 1,
@@ -31,4 +15,20 @@ class UserDto {
     example: 'onda@gmail.com',
   })
   email: string;
+}
+
+export class SignInOutputDto {
+  @ApiProperty({
+    example: {
+      email: 'onda@gmail.com',
+      id: 1,
+      username: 'John Doe',
+    },
+  })
+  user: UserDto;
+
+  @ApiProperty({
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+  })
+  token: string;
 }
