@@ -5,6 +5,7 @@ import { InviteModel } from '@src/domain/model/invite.model';
 import { SessionModel } from '@src/domain/model/session.model';
 import { SaveInviteParams } from '@src/domain/repositories/invite/types';
 import { Invite } from '../entities/invite.entity';
+import { User } from '../entities/user.entity';
 import { BaseRepository } from './base.repository';
 
 @Injectable()
@@ -12,6 +13,19 @@ export class InviteRepositoryImpl
   extends BaseRepository
   implements InviteRepository
 {
+  async getById(id: number): Promise<InviteModel> {
+    const invite = await this.getRepository(Invite).findOne({
+      where: {
+        id,
+      },
+    });
+
+    return new InviteModel({
+      ...invite,
+      session: undefined,
+    });
+  }
+
   async findByUserId(userId: number): Promise<InviteModel[]> {
     const invites = await this.getRepository(Invite).find({
       relations: {
@@ -51,9 +65,13 @@ export class InviteRepositoryImpl
   async save(params: SaveInviteParams): Promise<InviteModel> {
     const { email, sessionId } = params;
 
-    const newInvite = await this.getRepository(Invite).save({
+    const user = await this.getRepository(User).findOneBy({
       email,
+    });
+
+    const newInvite = await this.getRepository(Invite).save({
       sessionId,
+      userId: user.id,
     });
 
     const invite = await this.getRepository(Invite).findOne({

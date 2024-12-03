@@ -8,7 +8,7 @@ import {
 import {
   ENTITY_MANAGER_KEY,
   RequestWithEntityManager,
-} from '@src/infra/types/request-with-entity.manager';
+} from '@src/infra/types/request-with-entity.manager.type';
 import { Observable, catchError, concatMap, finalize } from 'rxjs';
 import { DataSource } from 'typeorm';
 

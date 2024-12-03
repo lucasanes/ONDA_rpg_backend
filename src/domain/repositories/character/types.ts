@@ -12,6 +12,12 @@ export type SaveCharacterParams = {
   xp: number;
 };
 
+export type UpdateCharacterParams = {
+  id: number;
+  isPublic?: boolean;
+  sessionId?: number;
+};
+
 export type UpdateMainParams = {
   age: number;
   class: string;
