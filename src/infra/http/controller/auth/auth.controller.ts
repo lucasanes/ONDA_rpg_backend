@@ -5,13 +5,14 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Put,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiDefaultResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { SignInUsecase } from '@src/domain/usecases/auth/sign-in.usecase';
@@ -50,8 +51,10 @@ export class AuthController {
     description: 'Retorna os dados do usuário logado.',
     summary: 'Retorna os dados do usuário logado.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Dados do usuário logado.',
+    status: 200,
+    type: MeOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -68,8 +71,9 @@ export class AuthController {
     description: 'Realiza o cadastro do usuário.',
     summary: 'Realiza o cadastro do usuário.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Cadastro realizado com sucesso.',
+    status: 201,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -93,8 +97,10 @@ export class AuthController {
     description: 'Realiza o login do usuário.',
     summary: 'Realiza o login do usuário.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Login realizado com sucesso.',
+    status: 200,
+    type: SignInOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -122,8 +128,9 @@ export class AuthController {
     description: 'Envia um email para recuperação de senha.',
     summary: 'Envia um email para recuperação de senha.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Email enviado com sucesso.',
+    status: 201,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -145,8 +152,10 @@ export class AuthController {
     description: 'Valida o código de recuperação de senha.',
     summary: 'Valida o código de recuperação de senha.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Código validado com sucesso.',
+    status: 200,
+    type: ValidateRecoveryOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -165,14 +174,15 @@ export class AuthController {
     });
   }
 
-  @Post('change-password')
+  @Put('change-password')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     description: 'Altera a senha do usuário.',
     summary: 'Altera a senha do usuário.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Senha alterada com sucesso.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',

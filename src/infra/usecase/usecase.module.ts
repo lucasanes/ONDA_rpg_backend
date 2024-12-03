@@ -18,6 +18,7 @@ import { CreateInviteUsecaseImpl } from '@src/application/usecases/invite/create
 import { DeleteInviteUsecaseImpl } from '@src/application/usecases/invite/delete-invite.usecase';
 import { CreateSessionUsecaseImpl } from '@src/application/usecases/session/create-session.usecase';
 import { DeleteSessionUsecaseImpl } from '@src/application/usecases/session/delete-session.usecase';
+import { GetSessionUsecaseImpl } from '@src/application/usecases/session/get-session.usecase';
 import { UpdateSessionUsecaseImpl } from '@src/application/usecases/session/update-session.usecase';
 import { ChangePasswordUsecase } from '@src/domain/usecases/auth/change-password.usecase';
 import { SendRecoveryUsecase } from '@src/domain/usecases/auth/send-recovery.usecase';
@@ -37,6 +38,7 @@ import { CreateInviteUsecase } from '@src/domain/usecases/invite/create-invite.u
 import { DeleteInviteUsecase } from '@src/domain/usecases/invite/delete-invite.usecase';
 import { CreateSessionUsecase } from '@src/domain/usecases/session/create-session.usecase';
 import { DeleteSessionUsecase } from '@src/domain/usecases/session/delete-session.usecase';
+import { GetSessionUsecase } from '@src/domain/usecases/session/get-session.usecase';
 import { UpdateSessionUsecase } from '@src/domain/usecases/session/update-session.usecase';
 
 const usecases: Provider[] = [
@@ -108,6 +110,10 @@ const usecases: Provider[] = [
   {
     provide: GetCharacterUsecase,
     useClass: GetCharacterUsecaseImpl,
+  },
+  {
+    provide: GetSessionUsecase,
+    useClass: GetSessionUsecaseImpl,
   },
   {
     provide: UpdateMainCharacterUsecase,

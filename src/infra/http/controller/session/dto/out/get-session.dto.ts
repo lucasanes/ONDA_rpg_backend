@@ -136,53 +136,72 @@ class StatusCharacter {
   currentMun: number;
 }
 
-class Session {
+class Character {
   @ApiProperty({
-    description: 'ID da sessão',
+    description: 'ID do personagem',
     example: 1,
   })
   @IsNumber()
   id: number;
 
   @ApiProperty({
-    description: 'Nome da sessão',
-    example: 'Nome da sessão',
+    description: 'Indica se o personagem é público',
+    example: true,
   })
-  @IsString()
-  name: string;
+  @IsBoolean()
+  isPublic: boolean;
 
   @ApiProperty({
-    description: 'Descrição da sessão',
-    example: 'Descrição da sessão',
-  })
-  @IsString()
-  description: string;
-
-  @ApiProperty({
-    description: 'ID do usuário proprietário da sessão',
+    description: 'ID do usuário proprietário do personagem',
     example: 1,
   })
   @IsNumber()
   userId: number;
 
   @ApiProperty({
-    description: 'Personagens associados à sessão',
+    description: 'ID da sessão associada ao personagem',
+    example: 1,
+    required: false,
   })
-  @Type(() => Character)
-  characters: Character[];
+  @IsOptional()
+  @IsNumber()
+  sessionId?: number;
 
   @ApiProperty({
-    description: 'Data de criação da sessão',
+    description: 'Itens do personagem',
+    example: 'Itens do personagem',
+  })
+  @IsNotEmpty()
+  @IsArray()
+  @Type(() => Item)
+  items: Item[];
+
+  @ApiProperty({
+    description: 'Personagem principal',
+    type: MainCharacter,
+  })
+  @Type(() => MainCharacter)
+  mainCharacter: MainCharacter;
+
+  @ApiProperty({
+    description: 'Status do personagem',
+    type: StatusCharacter,
+  })
+  @Type(() => StatusCharacter)
+  statusCharacter: StatusCharacter;
+
+  @ApiProperty({
+    description: 'Data de criação do personagem',
     example: '2021-08-07T00:00:00.000Z',
   })
-  @IsDateString()
+  @IsString()
   createdAt: Date;
 
   @ApiProperty({
-    description: 'Data de atualização da sessão',
+    description: 'Data de atualização do personagem',
     example: '2021-08-07T00:00:00.000Z',
   })
-  @IsDateString()
+  @IsString()
   updatedAt: Date;
 }
 
@@ -244,97 +263,64 @@ class Item {
   updatedAt: Date;
 }
 
-class Character {
+export class GetSessionOutputDto {
   @ApiProperty({
-    description: 'ID do personagem',
+    description: 'ID da sessão',
     example: 1,
   })
   @IsNumber()
   id: number;
 
   @ApiProperty({
-    description: 'Indica se o personagem é público',
-    example: true,
+    description: 'Nome da sessão',
+    example: 'Nome da sessão',
   })
-  @IsBoolean()
-  isPublic: boolean;
+  @IsString()
+  name: string;
 
   @ApiProperty({
-    description: 'ID do usuário proprietário do personagem',
+    description: 'Descrição da sessão',
+    example: 'Descrição da sessão',
+  })
+  @IsString()
+  description: string;
+
+  @ApiProperty({
+    description: 'ID do usuário criador da sessão',
     example: 1,
   })
   @IsNumber()
   userId: number;
 
   @ApiProperty({
-    description: 'ID da sessão associada ao personagem',
-    example: 1,
-    required: false,
+    description: 'Personagens da sessão',
+    type: [Character],
   })
-  @IsOptional()
-  @IsNumber()
-  sessionId?: number;
-
-  @ApiProperty({
-    description: 'Sessão associada ao personagem',
-    required: false,
-  })
-  @IsOptional()
   @IsArray()
-  @Type(() => Session)
-  session: Session;
-
-  @ApiProperty({
-    description: 'Itens do personagem',
-    example: 'Itens do personagem',
-  })
   @IsNotEmpty()
+  @Type(() => Character)
+  characters: Character[];
+
+  @ApiProperty({
+    description: 'Itens da sessão',
+    type: [Item],
+  })
   @IsArray()
+  @IsNotEmpty()
   @Type(() => Item)
   items: Item[];
 
   @ApiProperty({
-    description: 'Personagem principal',
-    type: MainCharacter,
-  })
-  @Type(() => MainCharacter)
-  mainCharacter: MainCharacter;
-
-  @ApiProperty({
-    description: 'Status do personagem',
-    type: StatusCharacter,
-  })
-  @Type(() => StatusCharacter)
-  statusCharacter: StatusCharacter;
-
-  @ApiProperty({
-    description: 'Data de criação do personagem',
+    description: 'Data de criação da sessão',
     example: '2021-08-07T00:00:00.000Z',
   })
   @IsString()
   createdAt: Date;
 
   @ApiProperty({
-    description: 'Data de atualização do personagem',
+    description: 'Data de atualização da sessão',
     example: '2021-08-07T00:00:00.000Z',
   })
   @IsString()
   updatedAt: Date;
-}
-
-export class GetCharacterOutputDto {
-  @ApiProperty({
-    description: 'Personagem',
-    type: Character,
-  })
-  @Type(() => Character)
-  character: Character;
-
-  @ApiProperty({
-    description:
-      'Indica se o usuário possui permissão para acessar o personagem',
-    example: true,
-  })
-  @IsBoolean()
-  hasPermission: boolean;
 }

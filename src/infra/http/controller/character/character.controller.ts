@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiDefaultResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -52,8 +52,10 @@ export class CharacterController {
     description: 'Buscar um personagem.',
     summary: 'Buscar um personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem encontrado.',
+    status: 200,
+    type: GetCharacterOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -82,8 +84,10 @@ export class CharacterController {
     description: 'Criar um novo personagem.',
     summary: 'Criar um novo personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem criado.',
+    status: 201,
+    type: CreateCharacterOutputDto,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -113,8 +117,9 @@ export class CharacterController {
     description: 'Atualizar um personagem.',
     summary: 'Atualizar um personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem atualizado.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -138,8 +143,9 @@ export class CharacterController {
     description: 'Atualizar as informações principais de um personagem.',
     summary: 'Atualizar as informações principais de um personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem atualizado.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -163,8 +169,9 @@ export class CharacterController {
     description: 'Atualizar os status de um personagem.',
     summary: 'Atualizar os status de um personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem atualizado.',
+    status: 200,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -188,8 +195,9 @@ export class CharacterController {
     description: 'Deletar um personagem.',
     summary: 'Deletar um personagem.',
   })
-  @ApiDefaultResponse({
+  @ApiResponse({
     description: 'Personagem deletado.',
+    status: 204,
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
