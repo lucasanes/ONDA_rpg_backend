@@ -120,6 +120,7 @@ export class CharacterRepositoryImpl
       characterId: newCharacter.id,
       currentHp: hp,
       currentMp: mp,
+      hp,
       mp,
       portrait,
     });

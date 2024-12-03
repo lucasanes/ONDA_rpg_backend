@@ -2,8 +2,8 @@ import { Usecase } from '../usecase';
 
 export type UpdateSessionUsecaseInput = {
   description: string;
+  id: number;
   name: string;
-  sessionId: number;
 };
 
 export type UpdateSessionUsecaseOutput = void;

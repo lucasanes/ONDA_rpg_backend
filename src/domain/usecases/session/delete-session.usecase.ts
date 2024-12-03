@@ -1,7 +1,7 @@
 import { Usecase } from '../usecase';
 
 export type DeleteSessionUsecaseInput = {
-  sessionId: number;
+  id: number;
 };
 
 export type DeleteSessionUsecaseOutput = void;

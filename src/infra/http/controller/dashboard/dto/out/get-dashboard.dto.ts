@@ -9,13 +9,20 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class MainCharacterProps {
+class Character {
   @ApiProperty({
-    description: 'ID do personagem principal',
+    description: 'ID do personagem',
     example: 1,
   })
   @IsNumber()
   id: number;
+
+  @ApiProperty({
+    description: 'Indica se o personagem é público',
+    example: true,
+  })
+  @IsBoolean()
+  isPublic: boolean;
 
   @ApiProperty({
     description: 'Nome do personagem principal',
@@ -67,36 +74,6 @@ class MainCharacterProps {
   xp: number;
 
   @ApiProperty({
-    description: 'ID do personagem relacionado',
-    example: 1,
-  })
-  @IsNumber()
-  characterId: number;
-
-  @ApiProperty({
-    description: 'Data de criação do personagem principal',
-    example: '2021-08-07T00:00:00.000Z',
-  })
-  @IsString()
-  createdAt: Date;
-
-  @ApiProperty({
-    description: 'Data de atualização do personagem principal',
-    example: '2021-08-07T00:00:00.000Z',
-  })
-  @IsString()
-  updatedAt: Date;
-}
-
-class StatusCharacterProps {
-  @ApiProperty({
-    description: 'ID do status do personagem',
-    example: 1,
-  })
-  @IsNumber()
-  id: number;
-
-  @ApiProperty({
     description: 'HP total do personagem',
     example: 100,
   })
@@ -125,6 +102,27 @@ class StatusCharacterProps {
   currentMp: number;
 
   @ApiProperty({
+    description: 'Moedas de Tibar do personagem',
+    example: 10,
+  })
+  @IsNumber()
+  ts: number;
+
+  @ApiProperty({
+    description: 'Moedas de Tibar de Prata do personagem',
+    example: 5,
+  })
+  @IsNumber()
+  tp: number;
+
+  @ApiProperty({
+    description: 'Moedas de Tibar de Ouro do personagem',
+    example: 2,
+  })
+  @IsNumber()
+  to: number;
+
+  @ApiProperty({
     description: 'Retrato do personagem',
     example: 'portrait.jpg',
     required: false,
@@ -132,45 +130,6 @@ class StatusCharacterProps {
   @IsOptional()
   @IsString()
   portrait?: string;
-
-  @ApiProperty({
-    description: 'Data de atualização do status do personagem',
-    example: '2021-08-07T00:00:00.000Z',
-  })
-  @IsString()
-  updatedAt: Date;
-}
-
-class Character {
-  @ApiProperty({
-    description: 'ID do personagem',
-    example: 1,
-  })
-  @IsNumber()
-  id: number;
-
-  @ApiProperty({
-    description: 'Indica se o personagem é público',
-    example: true,
-  })
-  @IsBoolean()
-  isPublic: boolean;
-
-  @ApiProperty({
-    description: 'Informações principais do personagem',
-    type: MainCharacterProps,
-  })
-  @ValidateNested()
-  @Type(() => MainCharacterProps)
-  mainCharacter: MainCharacterProps;
-
-  @ApiProperty({
-    description: 'Status do personagem',
-    type: StatusCharacterProps,
-  })
-  @ValidateNested()
-  @Type(() => StatusCharacterProps)
-  statusCharacter: StatusCharacterProps;
 
   @ApiProperty({
     description: 'ID do usuário proprietário do personagem',
@@ -187,6 +146,15 @@ class Character {
   @IsOptional()
   @IsNumber()
   sessionId?: number;
+
+  @ApiProperty({
+    description: 'Nome da sessão associada ao personagem',
+    example: 'Nome da sessão',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  sessionName?: string;
 
   @ApiProperty({
     description: 'Data de criação do personagem',
@@ -255,15 +223,6 @@ class Session {
   })
   @IsString()
   updatedAt: Date;
-
-  @ApiProperty({
-    description: 'Personagens relacionados à sessão',
-    type: [Character],
-  })
-  @IsOptional()
-  @IsArray()
-  @Type(() => Character)
-  characters?: Character[];
 }
 
 class Invite {

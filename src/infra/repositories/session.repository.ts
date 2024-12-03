@@ -28,21 +28,15 @@ export class SessionRepositoryImpl
       },
     });
 
-    const players: string[] = sessions.reduce(
-      (acc: string[], session) => [
-        ...acc,
-        ...session.characters.map((c) => c.user.username),
-      ],
-      [],
-    );
-
     return sessions.map(
       (session) =>
         new SessionModel({
           ...session,
           characters: [],
           items: [],
-          players,
+          players: session.characters.map(
+            (character) => character.user.username,
+          ),
         }),
     );
   }

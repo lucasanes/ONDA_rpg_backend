@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ExceptionService } from '@src/domain/exceptions/exception.interface';
 import { CharacterRepository } from '@src/domain/repositories/character/character.repository';
 import { InviteRepository } from '@src/domain/repositories/invite/invite.repository';
 import { SessionRepository } from '@src/domain/repositories/session/session.repository';
@@ -15,7 +14,6 @@ export class GetDashboardUsecaseImpl implements GetDashboardUsecase {
     private readonly sessionRepository: SessionRepository,
     private readonly characterRepository: CharacterRepository,
     private readonly inviteRepository: InviteRepository,
-    private readonly exceptionService: ExceptionService,
   ) {}
 
   async execute(

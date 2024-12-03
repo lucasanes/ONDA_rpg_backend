@@ -44,14 +44,6 @@ export class InviteRepositoryImpl
       },
     });
 
-    const players: string[] = invites.reduce(
-      (acc: string[], invite) => [
-        ...acc,
-        ...invite.session.characters.map((c) => c.user.username),
-      ],
-      [],
-    );
-
     return invites.map(
       (invite) =>
         new InviteModel({
@@ -60,7 +52,9 @@ export class InviteRepositoryImpl
             ...invite.session,
             characters: [],
             items: [],
-            players,
+            players: invite.session.characters.map(
+              (character) => character.user.username,
+            ),
           }),
         }),
     );
