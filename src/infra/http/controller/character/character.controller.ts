@@ -19,6 +19,7 @@ import {
 
 import { CreateCharacterUsecase } from '@src/domain/usecases/character/create-character.usecase';
 import { DeleteCharacterUsecase } from '@src/domain/usecases/character/delete-character.usecase';
+import { GetCharacterPortraitUsecase } from '@src/domain/usecases/character/get-character-portrait.usecase';
 import { GetCharacterUsecase } from '@src/domain/usecases/character/get-character.usecase';
 import { UpdateCharacterUsecase } from '@src/domain/usecases/character/update-character.usecase';
 import { UpdateMainCharacterUsecase } from '@src/domain/usecases/character/update-main-character.usecase';
@@ -32,12 +33,14 @@ import { UpdateMainCharacterInputDto } from './dto/in/update-main-character.dto'
 import { UpdateStatusCharacterInputDto } from './dto/in/update-status-character.dto';
 import { CreateCharacterOutputDto } from './dto/out/create-character.dto';
 import { GetCharacterOutputDto } from './dto/out/get-character.dto';
+import { GetCharacterPortraitOutputDto } from './dto/out/get-portrait.dto';
 
 @ApiTags('Character')
 @ApiBearerAuth()
 @Controller('characters')
 export class CharacterController {
   constructor(
+    private readonly getCharacterPortraitUsecase: GetCharacterPortraitUsecase,
     private readonly getCharacterUsecase: GetCharacterUsecase,
     private readonly createCharacterUsecase: CreateCharacterUsecase,
     private readonly updateCharacterUsecase: UpdateCharacterUsecase,
@@ -75,6 +78,51 @@ export class CharacterController {
     return {
       character: response.character,
       hasPermission: response.hasPermission,
+    };
+  }
+
+  @Get(':id/portrait')
+  @UseGuards()
+  @ApiOperation({
+    description: 'Buscar portrait de um personagem.',
+    summary: 'Buscar portrait de um personagem.',
+  })
+  @ApiResponse({
+    description: 'Portrait do personagem encontrado.',
+    status: 200,
+    type: GetCharacterOutputDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not Found.',
+  })
+  async getCharacterPortrait(
+    @Param('id') id: number,
+  ): Promise<GetCharacterPortraitOutputDto> {
+    const character = await this.getCharacterPortraitUsecase.execute({
+      id,
+    });
+
+    return {
+      createdAt: character.createdAt,
+      currentHp: character.statusCharacter.currentHp,
+      currentMp: character.statusCharacter.currentMp,
+      currentMun: character.statusCharacter.currentMun,
+      hp: character.statusCharacter.hp,
+      id: character.statusCharacter.id,
+      isPublic: character.isPublic,
+      mp: character.statusCharacter.mp,
+      mun: character.statusCharacter.mun,
+      name: character.mainCharacter.name,
+      portrait: character.statusCharacter.portrait,
+      sessionId: character.sessionId,
+      to: character.mainCharacter.to,
+      tp: character.mainCharacter.tp,
+      ts: character.mainCharacter.ts,
+      updatedAt: character.updatedAt,
+      userId: character.userId,
     };
   }
 

@@ -7,6 +7,7 @@ import {
   FindUserByParams,
   SaveRecoveryParams,
   SaveUserParams,
+  UpdateUserParams,
 } from './types';
 
 export abstract class AuthRepository {
@@ -14,6 +15,7 @@ export abstract class AuthRepository {
   abstract getUserBy(params: FindUserByParams): Promise<UserModel | null>;
   abstract saveUser(params: SaveUserParams): Promise<UserModel>;
   abstract changePassword(params: ChangePasswordParams): Promise<void>;
+  abstract updateUser(params: UpdateUserParams): Promise<void>;
   abstract findRecoveryBy(
     params: FindRecoveryByParams,
   ): Promise<RecoveryModel | null>;

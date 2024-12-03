@@ -10,6 +10,7 @@ import {
   FindUserByParams,
   SaveRecoveryParams,
   SaveUserParams,
+  UpdateUserParams,
 } from '@src/domain/repositories/auth/types';
 import { Recovery } from '../entities/recovery.entity';
 import { BaseRepository } from './base.repository';
@@ -97,5 +98,16 @@ export class AuthRepositoryImpl
     await this.getRepository(Recovery).delete({
       id,
     });
+  }
+
+  async updateUser(params: UpdateUserParams): Promise<void> {
+    await this.getRepository(User).update(
+      {
+        id: params.id,
+      },
+      {
+        ...params,
+      },
+    );
   }
 }

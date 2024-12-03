@@ -9,6 +9,10 @@ export type SaveUserParams = {
   username: string;
 };
 
+export type UpdateUserParams = Partial<SaveUserParams> & {
+  id: number;
+};
+
 export type SaveRecoveryParams = {
   code: string;
   userId: number;

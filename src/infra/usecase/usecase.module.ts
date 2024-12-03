@@ -8,6 +8,7 @@ import { ValidateRecoveryUsecaseImpl } from '@src/application/usecases/auth/vali
 import { ValidateTokenUsecaseImpl } from '@src/application/usecases/auth/validate-token.usecase';
 import { CreateCharacterUsecaseImpl } from '@src/application/usecases/character/create-character.usecase';
 import { DeleteCharacterUsecaseImpl } from '@src/application/usecases/character/delete-character.usecase';
+import { GetCharacterPortraitUsecaseImpl } from '@src/application/usecases/character/get-character-portrait.usecase';
 import { GetCharacterUsecaseImpl } from '@src/application/usecases/character/get-character.usecase';
 import { UpdateCharacterUsecaseImpl } from '@src/application/usecases/character/update-character.usecase';
 import { UpdateMainCharacterUsecaseImpl } from '@src/application/usecases/character/update-main-character.usecase';
@@ -16,10 +17,15 @@ import { GetDashboardUsecaseImpl } from '@src/application/usecases/dashboard/get
 import { AcceptInviteUsecaseImpl } from '@src/application/usecases/invite/accept-invite.usecase';
 import { CreateInviteUsecaseImpl } from '@src/application/usecases/invite/create-invite.usecase';
 import { DeleteInviteUsecaseImpl } from '@src/application/usecases/invite/delete-invite.usecase';
+import { CreateItemUsecaseImpl } from '@src/application/usecases/item/create-item.usecase';
+import { DeleteItemUsecaseImpl } from '@src/application/usecases/item/delete-item.usecase';
+import { FindItemsByUsecaseImpl } from '@src/application/usecases/item/find-items-by.usecase';
+import { UpdateItemUsecaseImpl } from '@src/application/usecases/item/update-item.usecase';
 import { CreateSessionUsecaseImpl } from '@src/application/usecases/session/create-session.usecase';
 import { DeleteSessionUsecaseImpl } from '@src/application/usecases/session/delete-session.usecase';
 import { GetSessionUsecaseImpl } from '@src/application/usecases/session/get-session.usecase';
 import { UpdateSessionUsecaseImpl } from '@src/application/usecases/session/update-session.usecase';
+import { UpdateUserUsecaseImpl } from '@src/application/usecases/user/update-user.usecase';
 import { ChangePasswordUsecase } from '@src/domain/usecases/auth/change-password.usecase';
 import { SendRecoveryUsecase } from '@src/domain/usecases/auth/send-recovery.usecase';
 import { SignInUsecase } from '@src/domain/usecases/auth/sign-in.usecase';
@@ -28,6 +34,7 @@ import { ValidateRecoveryUsecase } from '@src/domain/usecases/auth/validate-reco
 import { ValidateTokenUsecase } from '@src/domain/usecases/auth/validate-token.usecase';
 import { CreateCharacterUsecase } from '@src/domain/usecases/character/create-character.usecase';
 import { DeleteCharacterUsecase } from '@src/domain/usecases/character/delete-character.usecase';
+import { GetCharacterPortraitUsecase } from '@src/domain/usecases/character/get-character-portrait.usecase';
 import { GetCharacterUsecase } from '@src/domain/usecases/character/get-character.usecase';
 import { UpdateCharacterUsecase } from '@src/domain/usecases/character/update-character.usecase';
 import { UpdateMainCharacterUsecase } from '@src/domain/usecases/character/update-main-character.usecase';
@@ -36,10 +43,15 @@ import { GetDashboardUsecase } from '@src/domain/usecases/dashboard/get-dashboar
 import { AcceptInviteUsecase } from '@src/domain/usecases/invite/accept-invite.usecase';
 import { CreateInviteUsecase } from '@src/domain/usecases/invite/create-invite.usecase';
 import { DeleteInviteUsecase } from '@src/domain/usecases/invite/delete-invite.usecase';
+import { CreateItemUsecase } from '@src/domain/usecases/item/create-item.usecase';
+import { DeleteItemUsecase } from '@src/domain/usecases/item/delete-item.usecase';
+import { FindItemsByUsecase } from '@src/domain/usecases/item/find-items-by.usecase';
+import { UpdateItemUsecase } from '@src/domain/usecases/item/update-item.usecase';
 import { CreateSessionUsecase } from '@src/domain/usecases/session/create-session.usecase';
 import { DeleteSessionUsecase } from '@src/domain/usecases/session/delete-session.usecase';
 import { GetSessionUsecase } from '@src/domain/usecases/session/get-session.usecase';
 import { UpdateSessionUsecase } from '@src/domain/usecases/session/update-session.usecase';
+import { UpdateUserUsecase } from '@src/domain/usecases/user/update-user.usecase';
 
 const usecases: Provider[] = [
   JwtService,
@@ -122,6 +134,30 @@ const usecases: Provider[] = [
   {
     provide: UpdateStatusCharacterUsecase,
     useClass: UpdateStatusCharacterUsecaseImpl,
+  },
+  {
+    provide: GetCharacterPortraitUsecase,
+    useClass: GetCharacterPortraitUsecaseImpl,
+  },
+  {
+    provide: CreateItemUsecase,
+    useClass: CreateItemUsecaseImpl,
+  },
+  {
+    provide: UpdateItemUsecase,
+    useClass: UpdateItemUsecaseImpl,
+  },
+  {
+    provide: DeleteItemUsecase,
+    useClass: DeleteItemUsecaseImpl,
+  },
+  {
+    provide: FindItemsByUsecase,
+    useClass: FindItemsByUsecaseImpl,
+  },
+  {
+    provide: UpdateUserUsecase,
+    useClass: UpdateUserUsecaseImpl,
   },
 ];
 

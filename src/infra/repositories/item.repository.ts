@@ -15,15 +15,16 @@ export class ItemRepositoryImpl
   extends BaseRepository
   implements ItemRepository
 {
-  async findBy(params: FindItemByParams): Promise<ItemModel[]> {
-    const { sessionId, characterId } = params;
-
-    const items = await this.getRepository(Item).find({
-      where: {
-        characterId,
-        sessionId,
-      },
+  async getById(id: number): Promise<ItemModel> {
+    const item = await this.getRepository(Item).findOneBy({
+      id,
     });
+
+    return new ItemModel(item);
+  }
+
+  async findBy(params: FindItemByParams): Promise<ItemModel[]> {
+    const items = await this.getRepository(Item).findBy(params);
 
     return items.map((item) => new ItemModel(item));
   }
