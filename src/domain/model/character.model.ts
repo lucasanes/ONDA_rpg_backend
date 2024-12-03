@@ -1,4 +1,5 @@
 import { ItemModel } from './item.model';
+import { SessionModel } from './session.model';
 
 export interface MainCharacterProps {
   age: number;
@@ -39,6 +40,7 @@ export interface CharacterModelProps {
   isPublic: boolean;
   items?: ItemModel[];
   mainCharacter: MainCharacterProps;
+  session?: SessionModel;
   sessionId?: number;
   statusCharacter: StatusCharacterProps;
   updatedAt: Date;
@@ -72,6 +74,10 @@ export class CharacterModel {
     return this.props.statusCharacter;
   }
 
+  get session(): SessionModel | undefined {
+    return this.props.session;
+  }
+
   get items(): ItemModel[] | undefined {
     return this.props.items || [];
   }
@@ -91,6 +97,7 @@ export class CharacterModel {
       isPublic: this.isPublic,
       items: this.items,
       mainCharacter: this.mainCharacter,
+      session: this.session,
       sessionId: this.sessionId,
       statusCharacter: this.statusCharacter,
       updatedAt: this.updatedAt,

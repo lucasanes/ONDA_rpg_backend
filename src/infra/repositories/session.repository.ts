@@ -68,7 +68,8 @@ export class SessionRepositoryImpl
     return new SessionModel({
       ...session,
       characters: session.characters.map(
-        (character) => new CharacterModel({ ...character, items: [] }),
+        (character) =>
+          new CharacterModel({ ...character, items: [], session: undefined }),
       ),
       items: session.items.map((item) => new ItemModel(item)),
     });

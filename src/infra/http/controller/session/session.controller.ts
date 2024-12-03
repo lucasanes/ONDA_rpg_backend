@@ -1,4 +1,12 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiDefaultResponse,
@@ -8,24 +16,33 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { GetDashboardUsecase } from '@src/domain/usecases/dashboard/get-dashboard.usecase';
+import { CreateSessionUsecase } from '@src/domain/usecases/session/create-session.usecase';
+import { DeleteSessionUsecase } from '@src/domain/usecases/session/delete-session.usecase';
+import { UpdateSessionUsecase } from '@src/domain/usecases/session/update-session.usecase';
+import { User } from '@src/infra/common/decorator/user.decorator';
 import { AuthGuard } from '@src/infra/common/guards/auth.guard';
-import { GetDashboardOutputDto } from './dto/out/me.dto';
+import { UserType } from '@src/infra/types/user.type';
+import { UpsertSessionInputDto } from './dto/in/upsert-session.dto';
+import { UpsertSessionOutputDto } from './dto/out/upsert-session.dto';
 
-@ApiTags('Dashboard')
+@ApiTags('Session')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('dashboard')
-export class DashboardController {
-  constructor(private readonly getDashboardUsecase: GetDashboardUsecase) {}
+@Controller('sessions')
+export class SessionController {
+  constructor(
+    private readonly createSessionUsecase: CreateSessionUsecase,
+    private readonly updateSessionUsecase: UpdateSessionUsecase,
+    private readonly deleteSessionUsecase: DeleteSessionUsecase,
+  ) {}
 
-  @Get(':userId')
+  @Post()
   @ApiOperation({
-    description: 'Retorna o dashboard do usuário.',
-    summary: 'Retorna o dashboard do usuário.',
+    description: 'Criar uma nova sessão.',
+    summary: 'Criar uma nova sessão.',
   })
   @ApiDefaultResponse({
-    description: 'Dashboard do usuário.',
+    description: 'Sessão criada.',
   })
   @ApiForbiddenResponse({
     description: 'Forbidden.',
@@ -33,11 +50,63 @@ export class DashboardController {
   @ApiNotFoundResponse({
     description: 'Not Found.',
   })
-  async getDashboard(
-    @Param('userId') userId: number,
-  ): Promise<GetDashboardOutputDto> {
-    return await this.getDashboardUsecase.execute({
-      userId,
+  async createSession(
+    @User() user: UserType,
+    @Body() body: UpsertSessionInputDto,
+  ): Promise<UpsertSessionOutputDto> {
+    const { description, name } = body;
+
+    return await this.createSessionUsecase.execute({
+      description,
+      name,
+      userId: user.id,
+    });
+  }
+
+  @Put(':sessionId')
+  @ApiOperation({
+    description: 'Atualizar uma sessão.',
+    summary: 'Atualizar uma sessão.',
+  })
+  @ApiDefaultResponse({
+    description: 'Sessão atualizada.',
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not Found.',
+  })
+  async updateSession(
+    @Param('sessionId') sessionId: number,
+    @Body() body: UpsertSessionInputDto,
+  ): Promise<void> {
+    const { description, name } = body;
+
+    await this.updateSessionUsecase.execute({
+      description,
+      name,
+      sessionId,
+    });
+  }
+
+  @Delete(':sessionId')
+  @ApiOperation({
+    description: 'Deletar uma sessão.',
+    summary: 'Deletar uma sessão.',
+  })
+  @ApiDefaultResponse({
+    description: 'Sessão deletada.',
+  })
+  @ApiForbiddenResponse({
+    description: 'Forbidden.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Not Found.',
+  })
+  async deleteSession(@Param('sessionId') sessionId: number): Promise<void> {
+    await this.deleteSessionUsecase.execute({
+      sessionId,
     });
   }
 }

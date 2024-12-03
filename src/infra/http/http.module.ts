@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './controller/auth/auth.controller';
+import { CharacterController } from './controller/character/character.controller';
 import { DashboardController } from './controller/dashboard/dashboard.controller';
+import { InviteController } from './controller/invite/invite.controller';
+import { SessionController } from './controller/session/session.controller';
 
 @Module({
-  controllers: [AuthController, DashboardController],
+  controllers: [
+    AuthController,
+    DashboardController,
+    SessionController,
+    CharacterController,
+    InviteController,
+  ],
   providers: [],
 })
 export class HttpModule {}

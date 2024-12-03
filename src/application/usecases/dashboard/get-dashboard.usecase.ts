@@ -25,15 +25,6 @@ export class GetDashboardUsecaseImpl implements GetDashboardUsecase {
   ): Promise<GetDashboardUsecaseOutput> {
     const { userId } = params;
 
-    const user = await this.authRepository.getUserById(userId);
-
-    if (!user) {
-      throw this.exceptionService.notFoundException({
-        code_error: 'NOT_FOUND',
-        message: 'Usuário não encontrado.',
-      });
-    }
-
     const sessions = await this.sessionRepository.findByUserId(userId);
 
     const characters = await this.characterRepository.findByUserId(userId);

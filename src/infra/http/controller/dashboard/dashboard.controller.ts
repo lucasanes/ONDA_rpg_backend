@@ -12,7 +12,7 @@ import { GetDashboardUsecase } from '@src/domain/usecases/dashboard/get-dashboar
 import { User } from '@src/infra/common/decorator/user.decorator';
 import { AuthGuard } from '@src/infra/common/guards/auth.guard';
 import { UserType } from '@src/infra/types/user.type';
-import { GetDashboardOutputDto } from './dto/out/me.dto';
+import { GetDashboardOutputDto } from './dto/out/get-dashboard.dto';
 
 @ApiTags('Dashboard')
 @ApiBearerAuth()

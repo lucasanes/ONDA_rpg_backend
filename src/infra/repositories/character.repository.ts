@@ -3,8 +3,10 @@ import { CharacterRepository } from '@src/domain/repositories/character/characte
 
 import { CharacterModel } from '@src/domain/model/character.model';
 import { ItemModel } from '@src/domain/model/item.model';
+import { SessionModel } from '@src/domain/model/session.model';
 import {
   SaveCharacterParams,
+  UpdateCharacterParams,
   UpdateMainParams,
   UpdateStatusParams,
 } from '@src/domain/repositories/character/types';
@@ -22,6 +24,7 @@ export class CharacterRepositoryImpl
     const characters = await this.getRepository(Character).find({
       relations: {
         mainCharacter: true,
+        session: true,
         statusCharacter: true,
       },
       where: {
@@ -30,7 +33,16 @@ export class CharacterRepositoryImpl
     });
 
     return characters.map(
-      (character) => new CharacterModel({ ...character, items: [] }),
+      (character) =>
+        new CharacterModel({
+          ...character,
+          items: [],
+          session: new SessionModel({
+            ...character.session,
+            characters: [],
+            items: [],
+          }),
+        }),
     );
   }
 
@@ -39,6 +51,9 @@ export class CharacterRepositoryImpl
       relations: {
         items: true,
         mainCharacter: true,
+        session: {
+          characters: true,
+        },
         statusCharacter: true,
       },
       where: {
@@ -53,11 +68,61 @@ export class CharacterRepositoryImpl
     return new CharacterModel({
       ...character,
       items: character.items.map((item) => new ItemModel(item)),
+      session: character.session
+        ? new SessionModel({
+            ...character.session,
+            characters: character.session.characters.map(
+              (character) =>
+                new CharacterModel({
+                  ...character,
+                  items: [],
+                  session: undefined,
+                }),
+            ),
+            items: [],
+          })
+        : null,
     });
   }
 
   async save(params: SaveCharacterParams): Promise<CharacterModel> {
-    const newCharacter = await this.getRepository(Character).save(params);
+    const {
+      age,
+      class: characterClass,
+      divinity,
+      hp,
+      mp,
+      name,
+      origin,
+      race,
+      portrait,
+      userId,
+      xp,
+    } = params;
+
+    const newCharacter = await this.getRepository(Character).save({
+      isPublic: false,
+      userId,
+    });
+
+    await this.getRepository(MainCharacter).save({
+      age,
+      characterId: newCharacter.id,
+      class: characterClass,
+      divinity,
+      name,
+      origin,
+      race,
+      xp,
+    });
+
+    await this.getRepository(StatusCharacter).save({
+      characterId: newCharacter.id,
+      currentHp: hp,
+      currentMp: mp,
+      mp,
+      portrait,
+    });
 
     const character = await this.getRepository(Character).findOne({
       relations: {
@@ -69,7 +134,20 @@ export class CharacterRepositoryImpl
       },
     });
 
-    return new CharacterModel({ ...character, items: [] });
+    return new CharacterModel({ ...character, items: [], session: null });
+  }
+
+  async update(params: UpdateCharacterParams): Promise<void> {
+    const { id, ...rest } = params;
+
+    await this.getRepository(Character).update(
+      {
+        id,
+      },
+      {
+        ...rest,
+      },
+    );
   }
 
   async updateMain(params: UpdateMainParams): Promise<void> {
