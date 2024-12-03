@@ -34,13 +34,13 @@ export type UpdateMainParams = {
 
 export type UpdateStatusParams = {
   cd: number;
-  currentHp: number;
-  currentMp: number;
-  currentMun: number;
+  currentHp?: number;
+  currentMp?: number;
+  currentMun?: number;
   defense: number;
-  hp: number;
+  hp?: number;
   id: number;
-  mp: number;
-  mun: number;
+  mp?: number;
+  mun?: number;
   portrait?: string;
 };
