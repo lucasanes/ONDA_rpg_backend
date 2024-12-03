@@ -17,7 +17,7 @@ export class UpdateSessionUsecaseImpl implements UpdateSessionUsecase {
   async execute(
     params: UpdateSessionUsecaseInput,
   ): Promise<UpdateSessionUsecaseOutput> {
-    const session = await this.sessionRepository.getById(params.sessionId);
+    const session = await this.sessionRepository.getById(params.id);
 
     if (!session) {
       throw this.exceptionService.notFoundException({
@@ -28,7 +28,7 @@ export class UpdateSessionUsecaseImpl implements UpdateSessionUsecase {
 
     await this.sessionRepository.update({
       ...params,
-      id: params.sessionId,
+      id: params.id,
     });
   }
 }

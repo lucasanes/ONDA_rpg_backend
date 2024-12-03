@@ -63,7 +63,7 @@ export class SessionController {
     });
   }
 
-  @Put(':sessionId')
+  @Put(':id')
   @ApiOperation({
     description: 'Atualizar uma sessão.',
     summary: 'Atualizar uma sessão.',
@@ -78,19 +78,19 @@ export class SessionController {
     description: 'Not Found.',
   })
   async updateSession(
-    @Param('sessionId') sessionId: number,
+    @Param('id') id: number,
     @Body() body: UpsertSessionInputDto,
   ): Promise<void> {
     const { description, name } = body;
 
     await this.updateSessionUsecase.execute({
       description,
+      id,
       name,
-      sessionId,
     });
   }
 
-  @Delete(':sessionId')
+  @Delete(':id')
   @ApiOperation({
     description: 'Deletar uma sessão.',
     summary: 'Deletar uma sessão.',
@@ -104,9 +104,9 @@ export class SessionController {
   @ApiNotFoundResponse({
     description: 'Not Found.',
   })
-  async deleteSession(@Param('sessionId') sessionId: number): Promise<void> {
+  async deleteSession(@Param('id') id: number): Promise<void> {
     await this.deleteSessionUsecase.execute({
-      sessionId,
+      id,
     });
   }
 }

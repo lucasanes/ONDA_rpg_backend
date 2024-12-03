@@ -13,8 +13,8 @@ export class DeleteSessionUsecaseImpl implements DeleteSessionUsecase {
   async execute(
     params: DeleteSessionUsecaseInput,
   ): Promise<DeleteSessionUsecaseOutput> {
-    const { sessionId } = params;
+    const { id } = params;
 
-    await this.sessionRepository.delete(sessionId);
+    await this.sessionRepository.delete(id);
   }
 }
