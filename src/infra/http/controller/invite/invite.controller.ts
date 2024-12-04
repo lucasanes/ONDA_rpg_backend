@@ -16,6 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { InviteModel } from '@src/domain/model/invite.model';
 import { AcceptInviteUsecase } from '@src/domain/usecases/invite/accept-invite.usecase';
 import { CreateInviteUsecase } from '@src/domain/usecases/invite/create-invite.usecase';
 import { DeleteInviteUsecase } from '@src/domain/usecases/invite/delete-invite.usecase';
@@ -49,8 +50,8 @@ export class InviteController {
   @ApiNotFoundResponse({
     description: 'Not Found.',
   })
-  async createInvite(@Body() body: CreateInviteInputDto): Promise<void> {
-    await this.createInviteUsecase.execute({
+  async createInvite(@Body() body: CreateInviteInputDto): Promise<InviteModel> {
+    return await this.createInviteUsecase.execute({
       ...body,
     });
   }

@@ -5,6 +5,10 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
+import { CleanImageDto } from '../dto/clean-image.dto';
+import { ImageDto } from '../dto/image.dto';
+import { InviteDto } from '../dto/invite.dto';
+import { ItemDto } from '../dto/item.dto';
 import { StatusCharacterDto } from '../dto/status-character.dto';
 import { SocketService } from '../services/socket.service';
 
@@ -25,5 +29,37 @@ export class SocketGateway {
     // @ConnectedSocket() client: Socket,
   ) {
     this.socketService.handleStatusEvent(this.server, data);
+  }
+
+  @SubscribeMessage('invite')
+  handleSendInvite(
+    @MessageBody()
+    data: InviteDto,
+  ) {
+    this.socketService.handleSendInvite(this.server, data);
+  }
+
+  @SubscribeMessage('item')
+  handleSendItem(
+    @MessageBody()
+    data: ItemDto,
+  ) {
+    this.socketService.handleSendItem(this.server, data);
+  }
+
+  @SubscribeMessage('image')
+  handleSendImage(
+    @MessageBody()
+    data: ImageDto,
+  ) {
+    this.socketService.handleSendImage(this.server, data);
+  }
+
+  @SubscribeMessage('clean-image')
+  handleCleanImage(
+    @MessageBody()
+    data: CleanImageDto,
+  ) {
+    this.socketService.handleCleanImage(this.server, data);
   }
 }
