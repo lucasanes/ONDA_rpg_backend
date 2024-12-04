@@ -18,6 +18,9 @@ export class SessionRepositoryImpl
 {
   async findByUserId(userId: number): Promise<SessionModel[]> {
     const sessions = await this.getRepository(Session).find({
+      order: {
+        name: 'ASC',
+      },
       relations: {
         characters: {
           user: true,
@@ -61,11 +64,17 @@ export class SessionRepositoryImpl
 
     return new SessionModel({
       ...session,
-      characters: session.characters.map(
-        (character) =>
-          new CharacterModel({ ...character, items: [], session: undefined }),
-      ),
-      items: session.items.map((item) => new ItemModel(item)),
+      characters: session.characters
+        .map(
+          (character) =>
+            new CharacterModel({ ...character, items: [], session: undefined }),
+        )
+        .sort((a, b) =>
+          a.mainCharacter.name.localeCompare(b.mainCharacter.name),
+        ),
+      items: session.items
+        .map((item) => new ItemModel(item))
+        .sort((a, b) => a.name.localeCompare(b.name)),
     });
   }
 

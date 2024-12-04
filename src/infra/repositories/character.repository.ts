@@ -22,6 +22,11 @@ export class CharacterRepositoryImpl
 {
   async findByUserId(userId: number): Promise<CharacterModel[]> {
     const characters = await this.getRepository(Character).find({
+      order: {
+        mainCharacter: {
+          name: 'ASC',
+        },
+      },
       relations: {
         mainCharacter: true,
         session: true,
@@ -69,7 +74,9 @@ export class CharacterRepositoryImpl
 
     return new CharacterModel({
       ...character,
-      items: character.items.map((item) => new ItemModel(item)),
+      items: character.items
+        .map((item) => new ItemModel(item))
+        .sort((a, b) => a.name.localeCompare(b.name)),
       session: character.session
         ? new SessionModel({
             ...character.session,
