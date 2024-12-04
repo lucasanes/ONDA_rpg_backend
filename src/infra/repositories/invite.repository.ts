@@ -77,7 +77,11 @@ export class InviteRepositoryImpl
 
     const invite = await this.getRepository(Invite).findOne({
       relations: {
-        session: true,
+        session: {
+          characters: {
+            user: true,
+          },
+        },
       },
       where: {
         id: newInvite.id,
@@ -90,6 +94,9 @@ export class InviteRepositoryImpl
         ...invite.session,
         characters: [],
         items: [],
+        players: invite.session.characters.map(
+          (character) => character.user.username,
+        ),
       }),
     });
   }
