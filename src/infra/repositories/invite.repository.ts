@@ -32,6 +32,9 @@ export class InviteRepositoryImpl
 
   async findByUserId(userId: number): Promise<InviteModel[]> {
     const invites = await this.getRepository(Invite).find({
+      order: {
+        createdAt: 'DESC',
+      },
       relations: {
         session: {
           characters: {

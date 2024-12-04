@@ -26,7 +26,11 @@ export class UpdateCharacterUsecaseImpl implements UpdateCharacterUsecase {
       });
     }
 
-    if (params.isPublic == undefined && params.sessionId == undefined) {
+    if (
+      params.isPublic == undefined &&
+      params.sessionId != null &&
+      params.sessionId == undefined
+    ) {
       throw this.exceptionService.businessException(
         {
           code_error: 'INVALID_PARAMS',

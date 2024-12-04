@@ -24,7 +24,12 @@ export class ItemRepositoryImpl
   }
 
   async findBy(params: FindItemByParams): Promise<ItemModel[]> {
-    const items = await this.getRepository(Item).findBy(params);
+    const items = await this.getRepository(Item).find({
+      order: {
+        name: 'ASC',
+      },
+      where: params,
+    });
 
     return items.map((item) => new ItemModel(item));
   }
