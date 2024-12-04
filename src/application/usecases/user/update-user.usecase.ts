@@ -20,8 +20,6 @@ export class UpdateUserUsecaseImpl implements UpdateUserUsecase {
   ): Promise<UpdateUserUsecaseOutput> {
     const { id, email, username, currentPassword } = params;
 
-    console.log({ params });
-
     const user = await this.authRepository.getUserById(id);
 
     if (!user) {

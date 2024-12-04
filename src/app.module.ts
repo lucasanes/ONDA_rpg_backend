@@ -4,6 +4,7 @@ import { ExceptionsModule } from './infra/exception/exception.module';
 import { HttpModule } from './infra/http/http.module';
 import { RepositoryModule } from './infra/repositories/repository.module';
 import { SharedModule } from './infra/shared.module';
+import { SocketModule } from './infra/socket/socket.module';
 import { UsecaseModule } from './infra/usecase/usecase.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { UsecaseModule } from './infra/usecase/usecase.module';
     HttpModule,
     DatabaseModule,
     UsecaseModule,
+    SocketModule,
     RepositoryModule,
     ExceptionsModule,
   ],
