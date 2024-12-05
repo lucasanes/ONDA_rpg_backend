@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import { ImageDto } from '../dto/image.dto';
 import { InviteDto } from '../dto/invite.dto';
 import { ItemDto } from '../dto/item.dto';
+import { RollDiceDto } from '../dto/roll-dice.dto';
 import { StatusCharacterDto } from '../dto/status-character.dto';
 
 @Injectable()
@@ -49,5 +50,31 @@ export class SocketService {
     const { sessionId } = data;
 
     server.emit(`clean-image?${sessionId}`);
+  }
+
+  handleRollDice(server: Server, data: RollDiceDto) {
+    const { sessionId, characterId, isCritical, isDisaster, value, isD20 } =
+      data;
+
+    if (!sessionId && !characterId) return;
+
+    if (characterId) {
+      server.emit(`roll-dice?${characterId}`, {
+        isCritical,
+        isD20,
+        isDisaster,
+        value,
+      });
+      return;
+    }
+
+    if (sessionId) {
+      server.emit(`roll-dice?${sessionId}`, {
+        isCritical,
+        isD20,
+        isDisaster,
+        value,
+      });
+    }
   }
 }

@@ -9,6 +9,7 @@ import { CleanImageDto } from '../dto/clean-image.dto';
 import { ImageDto } from '../dto/image.dto';
 import { InviteDto } from '../dto/invite.dto';
 import { ItemDto } from '../dto/item.dto';
+import { RollDiceDto } from '../dto/roll-dice.dto';
 import { StatusCharacterDto } from '../dto/status-character.dto';
 import { SocketService } from '../services/socket.service';
 
@@ -61,5 +62,13 @@ export class SocketGateway {
     data: CleanImageDto,
   ) {
     this.socketService.handleCleanImage(this.server, data);
+  }
+
+  @SubscribeMessage('roll-dice')
+  handleRollDice(
+    @MessageBody()
+    data: RollDiceDto,
+  ) {
+    this.socketService.handleRollDice(this.server, data);
   }
 }
