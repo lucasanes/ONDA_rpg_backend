@@ -30,7 +30,10 @@ export class GetCharacterUsecaseImpl implements GetCharacterUsecase {
 
     let hasPermission = false;
 
-    if (character.userId === userId || character.session.userId === userId) {
+    if (
+      character.userId === userId ||
+      (character.session && character.session.userId === userId)
+    ) {
       hasPermission = true;
     }
 
