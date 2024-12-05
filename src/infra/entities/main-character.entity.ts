@@ -46,6 +46,9 @@ export class MainCharacter {
   @Column('int', { default: 0 })
   to: number;
 
+  @Column('int', { default: 0, name: 'weight_limit' })
+  weightLimit: number;
+
   @Column({ name: 'character_id', type: 'int' })
   @Index()
   characterId: number;
