@@ -1,11 +1,13 @@
 export interface ItemModelProps {
   characterId?: number;
   createdAt: Date;
+  description?: string;
   id: number;
   image: string;
   name: string;
   sessionId?: number;
   updatedAt: Date;
+  weight: number;
 }
 
 export class ItemModel {
@@ -17,6 +19,14 @@ export class ItemModel {
 
   get name(): string {
     return this.props.name;
+  }
+
+  get description(): string | undefined {
+    return this.props.description;
+  }
+
+  get weight(): number {
+    return this.props.weight;
   }
 
   get image(): string {
@@ -43,11 +53,13 @@ export class ItemModel {
     return {
       characterId: this.characterId,
       createdAt: this.createdAt,
+      description: this.description,
       id: this.id,
       image: this.image,
       name: this.name,
       sessionId: this.sessionId,
       updatedAt: this.updatedAt,
+      weight: this.weight,
     };
   }
 }

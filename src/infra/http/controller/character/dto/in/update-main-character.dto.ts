@@ -24,6 +24,13 @@ export class UpdateMainCharacterInputDto {
   xp: number;
 
   @ApiProperty({
+    example: 10,
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  weightLimit: number;
+
+  @ApiProperty({
     example: 'Arcanista',
   })
   @IsString()

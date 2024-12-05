@@ -15,6 +15,7 @@ export interface MainCharacterProps {
   tp: number;
   ts: number;
   updatedAt: Date;
+  weightLimit: number;
   xp: number;
 }
 

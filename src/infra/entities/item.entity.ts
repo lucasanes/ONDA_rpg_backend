@@ -20,6 +20,12 @@ export class Item {
   @Column('varchar')
   name: string;
 
+  @Column('varchar', { nullable: true })
+  description?: string;
+
+  @Column('int', { default: 0 })
+  weight: number;
+
   @Column('varchar')
   image: string;
 

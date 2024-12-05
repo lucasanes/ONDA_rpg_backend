@@ -17,6 +17,22 @@ export class UpsertItemInputDto {
   name: string;
 
   @ApiProperty({
+    description: 'Descrição do item',
+    example: 'Descrição do item',
+  })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @ApiProperty({
+    description: 'Peso do item',
+    example: 3,
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  weight: number;
+
+  @ApiProperty({
     description: 'Imagem do item',
     example: 'Imagem do item',
   })

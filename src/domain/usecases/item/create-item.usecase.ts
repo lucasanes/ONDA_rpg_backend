@@ -3,9 +3,11 @@ import { Usecase } from '../usecase';
 
 export type CreateItemUsecaseInput = {
   characterId?: number;
+  description?: string;
   image: string;
   name: string;
   sessionId?: number;
+  weight: number;
 };
 
 export type CreateItemUsecaseOutput = ItemModel;

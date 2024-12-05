@@ -11,6 +11,7 @@ export type UpdateMainCharacterUsecaseInput = {
   to: number;
   tp: number;
   ts: number;
+  weightLimit: number;
   xp: number;
 };
 
