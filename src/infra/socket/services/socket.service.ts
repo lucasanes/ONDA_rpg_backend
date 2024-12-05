@@ -53,27 +53,39 @@ export class SocketService {
   }
 
   handleRollDice(server: Server, data: RollDiceDto) {
-    const { sessionId, characterId, isCritical, isDisaster, value, isD20 } =
-      data;
+    const {
+      name,
+      portrait,
+      sessionId,
+      characterId,
+      isCritical,
+      isDisaster,
+      dice,
+      isD20,
+    } = data;
 
     if (!sessionId && !characterId) return;
 
     if (characterId) {
       server.emit(`roll-dice?${characterId}`, {
+        dice,
         isCritical,
         isD20,
         isDisaster,
-        value,
+        name,
+        portrait,
       });
       return;
     }
 
     if (sessionId) {
       server.emit(`roll-dice?${sessionId}`, {
+        dice,
         isCritical,
         isD20,
         isDisaster,
-        value,
+        name,
+        portrait,
       });
     }
   }
