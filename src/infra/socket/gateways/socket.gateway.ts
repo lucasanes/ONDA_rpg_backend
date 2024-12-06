@@ -11,6 +11,7 @@ import { InviteDto } from '../dto/invite.dto';
 import { ItemDto } from '../dto/item.dto';
 import { RollDiceDto } from '../dto/roll-dice.dto';
 import { StatusCharacterDto } from '../dto/status-character.dto';
+import { XPDto } from '../dto/xp.dto';
 import { SocketService } from '../services/socket.service';
 
 @WebSocketGateway({
@@ -30,6 +31,15 @@ export class SocketGateway {
     // @ConnectedSocket() client: Socket,
   ) {
     this.socketService.handleStatusEvent(this.server, data);
+  }
+
+  @SubscribeMessage('xp')
+  handleXPUpdate(
+    @MessageBody()
+    data: XPDto,
+    // @ConnectedSocket() client: Socket,
+  ) {
+    this.socketService.handleXPEvent(this.server, data);
   }
 
   @SubscribeMessage('invite')
