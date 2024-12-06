@@ -5,6 +5,7 @@ import { InviteDto } from '../dto/invite.dto';
 import { ItemDto } from '../dto/item.dto';
 import { RollDiceDto } from '../dto/roll-dice.dto';
 import { StatusCharacterDto } from '../dto/status-character.dto';
+import { XPDto } from '../dto/xp.dto';
 
 @Injectable()
 export class SocketService {
@@ -24,6 +25,14 @@ export class SocketService {
       id,
       session,
       sessionId,
+    });
+  }
+
+  handleXPEvent(server: Server, data: XPDto) {
+    const { characterId, xp } = data;
+
+    server.emit(`xp?${characterId}`, {
+      xp,
     });
   }
 
