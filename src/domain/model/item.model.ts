@@ -1,9 +1,9 @@
 export interface ItemModelProps {
   characterId?: number;
   createdAt: Date;
-  description?: string;
+  description: string;
   id: number;
-  image: string;
+  image?: string;
   name: string;
   sessionId?: number;
   updatedAt: Date;
