@@ -106,6 +106,7 @@ export class ItemController {
   async createItem(
     @Body() body: UpsertItemInputDto,
   ): Promise<UpsertItemOutputDto> {
+    console.log(body);
     return await this.createItemUsecase.execute(body);
   }
 
