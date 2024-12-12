@@ -2,9 +2,9 @@ import { Usecase } from '../usecase';
 
 export type UpdateItemUsecaseInput = {
   characterId?: number;
-  description?: string;
+  description: string;
   id: number;
-  image: string;
+  image?: string;
   name: string;
   sessionId?: number;
   weight: number;

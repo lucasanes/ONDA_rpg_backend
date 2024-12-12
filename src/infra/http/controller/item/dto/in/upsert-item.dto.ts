@@ -20,9 +20,9 @@ export class UpsertItemInputDto {
     description: 'Descrição do item',
     example: 'Descrição do item',
   })
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  description?: string;
+  description: string;
 
   @ApiProperty({
     description: 'Peso do item',
@@ -36,9 +36,9 @@ export class UpsertItemInputDto {
     description: 'Imagem do item',
     example: 'Imagem do item',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsUrl()
-  image: string;
+  image?: string;
 
   @ApiProperty({
     description: 'Sessão associada ao item',

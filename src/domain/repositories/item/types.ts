@@ -5,9 +5,11 @@ export type FindItemByParams = {
 
 export type SaveItemParams = {
   characterId?: number;
-  image: string;
+  description: string;
+  image?: string;
   name: string;
   sessionId?: number;
+  weight: number;
 };
 
 export type UpdateItemParams = Partial<SaveItemParams> & {
