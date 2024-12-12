@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  ValidateIf,
 } from 'class-validator';
 
 export class UpsertItemInputDto {
@@ -37,6 +38,7 @@ export class UpsertItemInputDto {
     example: 'Imagem do item',
   })
   @IsOptional()
+  @ValidateIf((o) => o.image !== '' && o.image !== null)
   @IsUrl()
   image?: string;
 
