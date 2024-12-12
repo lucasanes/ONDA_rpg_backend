@@ -20,13 +20,13 @@ export class Item {
   @Column('varchar')
   name: string;
 
-  @Column('varchar', { nullable: true })
-  description?: string;
+  @Column('varchar', { default: '', nullable: false })
+  description: string;
 
   @Column('int', { default: 0 })
   weight: number;
 
-  @Column('varchar')
+  @Column('varchar', { default: '', nullable: false })
   image: string;
 
   @Column('int', { name: 'session_id', nullable: true })
