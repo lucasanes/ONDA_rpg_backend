@@ -47,6 +47,7 @@ export class Item {
   @ManyToOne(() => Character, (character) => character.items, {
     nullable: true,
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'character_id' })
   character?: Relation<Character>;

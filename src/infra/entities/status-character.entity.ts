@@ -49,6 +49,7 @@ export class StatusCharacter {
 
   @OneToOne(() => Character, (character) => character.statusCharacter, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'character_id' })
   character: Relation<Character>;

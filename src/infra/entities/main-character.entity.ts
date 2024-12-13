@@ -55,6 +55,7 @@ export class MainCharacter {
 
   @OneToOne(() => Character, (character) => character.mainCharacter, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'character_id' })
   @Index()
