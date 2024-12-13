@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Server } from 'socket.io';
+import { AudioPlayAndPauseDto } from '../dto/audio-play-and-pause.dto';
+import { AudioVolumeDto } from '../dto/audio-volume.dto';
 import { ImageDto } from '../dto/image.dto';
 import { InviteDto } from '../dto/invite.dto';
 import { ItemDto } from '../dto/item.dto';
@@ -97,5 +99,31 @@ export class SocketService {
         portrait,
       });
     }
+  }
+
+  handlePlayAudio(server: Server, data: AudioPlayAndPauseDto) {
+    const { userId, audioUrl, currentTime } = data;
+
+    server.emit(`audio-play?${userId}`, {
+      audioUrl,
+      currentTime,
+    });
+  }
+
+  handlePauseAudio(server: Server, data: AudioPlayAndPauseDto) {
+    const { userId, currentTime } = data;
+
+    server.emit(`audio-pause?${userId}`, {
+      currentTime,
+    });
+  }
+
+  handleChangeAudioVolume(server: Server, data: AudioVolumeDto) {
+    const { userId, volume, audioUrl } = data;
+
+    server.emit(`audio-volume?${userId}`, {
+      audioUrl,
+      volume,
+    });
   }
 }
