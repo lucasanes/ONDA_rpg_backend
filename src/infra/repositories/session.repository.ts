@@ -69,9 +69,7 @@ export class SessionRepositoryImpl
           (character) =>
             new CharacterModel({ ...character, items: [], session: undefined }),
         )
-        .sort((a, b) =>
-          a.mainCharacter.name.localeCompare(b.mainCharacter.name),
-        ),
+        .sort((a, b) => a.id - b.id),
       items: session.items
         .map((item) => new ItemModel(item))
         .sort((a, b) => a.name.localeCompare(b.name)),
