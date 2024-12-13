@@ -5,6 +5,8 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
+import { AudioPlayAndPauseDto } from '../dto/audio-play-and-pause.dto';
+import { AudioVolumeDto } from '../dto/audio-volume.dto';
 import { CleanImageDto } from '../dto/clean-image.dto';
 import { ImageDto } from '../dto/image.dto';
 import { InviteDto } from '../dto/invite.dto';
@@ -80,5 +82,29 @@ export class SocketGateway {
     data: RollDiceDto,
   ) {
     this.socketService.handleRollDice(this.server, data);
+  }
+
+  @SubscribeMessage('audio-play')
+  handlePlayAudio(
+    @MessageBody()
+    data: AudioPlayAndPauseDto,
+  ) {
+    this.socketService.handlePlayAudio(this.server, data);
+  }
+
+  @SubscribeMessage('audio-pause')
+  handlePauseAudio(
+    @MessageBody()
+    data: AudioPlayAndPauseDto,
+  ) {
+    this.socketService.handlePauseAudio(this.server, data);
+  }
+
+  @SubscribeMessage('audio-volume')
+  handleChangeAudioVolume(
+    @MessageBody()
+    data: AudioVolumeDto,
+  ) {
+    this.socketService.handleChangeAudioVolume(this.server, data);
   }
 }
