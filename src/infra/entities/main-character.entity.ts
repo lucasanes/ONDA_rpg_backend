@@ -38,10 +38,10 @@ export class MainCharacter {
   origin: string;
 
   @Column('int', { default: 0 })
-  ts: number;
+  tp: number;
 
   @Column('int', { default: 0 })
-  tp: number;
+  tc: number;
 
   @Column('int', { default: 0 })
   to: number;

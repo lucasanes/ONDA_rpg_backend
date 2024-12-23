@@ -26,9 +26,9 @@ export type UpdateMainParams = {
   name: string;
   origin: string;
   race: string;
+  tc: number;
   to: number;
   tp: number;
-  ts: number;
   xp: number;
 };
 

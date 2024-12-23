@@ -118,9 +118,9 @@ export class CharacterController {
       name: character.mainCharacter.name,
       portrait: character.statusCharacter.portrait,
       sessionId: character.sessionId,
+      tc: character.mainCharacter.tc,
       to: character.mainCharacter.to,
       tp: character.mainCharacter.tp,
-      ts: character.mainCharacter.ts,
       updatedAt: character.updatedAt,
       userId: character.userId,
     };

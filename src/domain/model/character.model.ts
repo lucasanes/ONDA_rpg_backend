@@ -11,9 +11,9 @@ export interface MainCharacterProps {
   name: string;
   origin: string;
   race: string;
+  tc: number;
   to: number;
   tp: number;
-  ts: number;
   updatedAt: Date;
   weightLimit: number;
   xp: number;

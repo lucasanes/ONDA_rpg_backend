@@ -99,13 +99,13 @@ export class GetCharacterPortraitOutputDto {
     example: 10,
   })
   @IsNumber()
-  ts: number;
+  tp: number;
 
   @ApiProperty({
     description: 'Moedas de Tibar de Prata do personagem',
     example: 10,
   })
-  tp: number;
+  tc: number;
 
   @ApiProperty({
     description: 'Moedas de Tibar de Ouro do personagem',
