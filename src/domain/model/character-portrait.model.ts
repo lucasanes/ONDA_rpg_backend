@@ -11,9 +11,9 @@ export interface CharacterPortraitModelProps {
   name: string;
   portrait?: string;
   sessionId?: number;
+  tc: number;
   to: number;
   tp: number;
-  ts: number;
   updatedAt: Date;
   userId: number;
 }

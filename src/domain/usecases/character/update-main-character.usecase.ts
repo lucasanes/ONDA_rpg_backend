@@ -8,9 +8,9 @@ export type UpdateMainCharacterUsecaseInput = {
   name: string;
   origin: string;
   race: string;
+  tc: number;
   to: number;
   tp: number;
-  ts: number;
   weightLimit: number;
   xp: number;
 };

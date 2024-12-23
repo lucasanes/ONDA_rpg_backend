@@ -66,14 +66,14 @@ class MainCharacter {
     example: 10,
   })
   @IsNumber()
-  ts: number;
+  tp: number;
 
   @ApiProperty({
     description: 'Moedas de Tibar de Prata do personagem',
     example: 5,
   })
   @IsNumber()
-  tp: number;
+  tc: number;
 
   @ApiProperty({
     description: 'Moedas de Tibar de Ouro do personagem',

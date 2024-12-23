@@ -63,14 +63,14 @@ export class UpdateMainCharacterInputDto {
   })
   @IsNumber()
   @IsNotEmpty()
-  ts: number;
+  tp: number;
 
   @ApiProperty({
     example: 16,
   })
   @IsNumber()
   @IsNotEmpty()
-  tp: number;
+  tc: number;
 
   @ApiProperty({
     example: 14,
