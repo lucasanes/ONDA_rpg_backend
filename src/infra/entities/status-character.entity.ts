@@ -43,6 +43,9 @@ export class StatusCharacter {
   @Column('int', { default: 0 })
   cd: number;
 
+  @Column('int', { default: 1 })
+  moldure: number;
+
   @Column({ name: 'character_id', type: 'int' })
   @Index()
   characterId: number;
