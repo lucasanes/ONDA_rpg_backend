@@ -6,6 +6,7 @@ export interface CharacterPortraitModelProps {
   hp: number;
   id: number;
   isPublic: boolean;
+  moldure: number;
   mp: number;
   mun: number;
   name: string;

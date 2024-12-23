@@ -29,6 +29,7 @@ export interface StatusCharacterProps {
   defense: number;
   hp: number;
   id: number;
+  moldure: number;
   mp: number;
   mun: number;
   portrait?: string;
