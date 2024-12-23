@@ -27,6 +27,14 @@ export class UpdateStatusCharacterInputDto {
   cd: number;
 
   @ApiProperty({
+    description: 'Moldura do personagem.',
+    example: 1,
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  moldure: number;
+
+  @ApiProperty({
     description: 'Vida total do personagem.',
     example: 100,
   })

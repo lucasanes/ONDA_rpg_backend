@@ -134,6 +134,13 @@ class StatusCharacter {
   })
   @IsNumber()
   currentMun: number;
+
+  @ApiProperty({
+    description: 'Moldura do personagem',
+    example: 1,
+  })
+  @IsNumber()
+  moldure: number;
 }
 
 class Session {
