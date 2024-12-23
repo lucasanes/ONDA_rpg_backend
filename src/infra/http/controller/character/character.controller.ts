@@ -113,6 +113,7 @@ export class CharacterController {
       hp: character.statusCharacter.hp,
       id: character.statusCharacter.id,
       isPublic: character.isPublic,
+      moldure: character.statusCharacter.moldure,
       mp: character.statusCharacter.mp,
       mun: character.statusCharacter.mun,
       name: character.mainCharacter.name,
