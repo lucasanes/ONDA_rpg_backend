@@ -75,10 +75,8 @@ export class SocketService {
       isD20,
     } = data;
 
-    if (!sessionId && !characterId) return;
-
     if (characterId) {
-      server.emit(`roll-dice?${characterId}`, {
+      server.emit(`roll-dice-character?${characterId}`, {
         dice,
         isCritical,
         isD20,
@@ -86,11 +84,10 @@ export class SocketService {
         name,
         portrait,
       });
-      return;
     }
 
     if (sessionId) {
-      server.emit(`roll-dice?${sessionId}`, {
+      server.emit(`roll-dice-session?${sessionId}`, {
         dice,
         isCritical,
         isD20,
