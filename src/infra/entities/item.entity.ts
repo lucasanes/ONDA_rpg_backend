@@ -23,7 +23,7 @@ export class Item {
   @Column('varchar', { default: '', nullable: false })
   description: string;
 
-  @Column('int', { default: 0 })
+  @Column('float', { default: 0 })
   weight: number;
 
   @Column('varchar', { default: '', nullable: false })
